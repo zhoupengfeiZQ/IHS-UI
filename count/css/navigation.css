@@ -23,9 +23,10 @@ border: none;
 }
 
 .nav li:hover, .nav li.active{
-  border-bottom: #C4E17F 3px solid;
+  border-bottom: cornsilk 3px solid;
 }
-./*nav li:hover:nth-child(8n+2), .nav li.active:nth-child(8n+2){
+./*#C4E17F
+  * nav li:hover:nth-child(8n+2), .nav li.active:nth-child(8n+2){
   border-bottom: #F7FDCA 3px solid;
 }
 .nav li:hover:nth-child(8n+3), .nav li.active:nth-child(8n+3){
