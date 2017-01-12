@@ -3,9 +3,8 @@
 ============= */
 
 .container-hover {margin: 0 auto; max-width: 1060px;top: 150px;position: absolute;left: 144px;}
-
-*{margin: 0; padding: 0; box-sizing: border-box;}
-img{max-width: 100%; vertical-align: middle;}
+/**{margin: 0; padding: 0; box-sizing: border-box;}*/
+.container-hover img{max-width: 100%; vertical-align: middle;}
 
 .container-hover ul{margin: 0 -1.5%;}
 .container-hover li{float: left; width: 31.33%; margin: 10px 1%; list-style: none;}
