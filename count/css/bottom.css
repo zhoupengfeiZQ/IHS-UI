@@ -1,7 +1,9 @@
 			div.flip-3d {
 				perspective: 1200px;
-				width: 30%;
+				width: 20%;
 				float: left;
+				margin: 25px;
+				border: 1px solid white;
 			}
 			/*使用 <figure> 元素标记文档中的一个图像*/
 			div.flip-3d figure {
@@ -9,6 +11,7 @@
 				transform-style: preserve-3d;
 				transition: 1s transform;
 				font-size: 1.6rem;
+				height: 335px;
 			}
 			
 			div.flip-3d figure img {

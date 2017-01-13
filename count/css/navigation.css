@@ -1,5 +1,6 @@
 body{
-    background: #8999A8;
+   background: #8999A8;
+ 	/*background:black*/
 }
 .navbar, .dropdown-menu{
 background:rgba(255,255,255,0.25);
