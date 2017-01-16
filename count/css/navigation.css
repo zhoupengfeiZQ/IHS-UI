@@ -1,9 +1,10 @@
 body{
-   background: #8999A8;
- 	/*background:black*/
+   background: white;
+ 	
 }
 .navbar, .dropdown-menu{
-background:rgba(255,255,255,0.25);
+background-color: #3C3C3C;
+/*background:rgba(255,255,255,0.25);*/
 border: none;
 }
 
@@ -15,15 +16,17 @@ border: none;
   background: none;
 }
 .navbar a, .dropdown-menu>li>a, .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover, .navbar-toggle{
- color: #fff;
+ color: white;
 }
 .dropdown-menu{
       -webkit-box-shadow: none;
     box-shadow:none;
 }
-
+.nav li, .nav li{
+  border-bottom: 2px solid #3C3C3C;
+}
 .nav li:hover, .nav li.active{
-  border-bottom: cornsilk 3px solid;
+  border-bottom: 2px solid white;
 }
 
 

@@ -1,8 +1,9 @@
 			div.flip-3d {
+				
 				perspective: 1200px;
 				width: 20%;
 				float: left;
-				margin: 25px;
+				margin: 25px 25px 0px 25px;
 				border: 1px solid white;
 			}
 			/*使用 <figure> 元素标记文档中的一个图像*/
