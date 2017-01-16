@@ -1,9 +1,7 @@
 
-/*= Reset CSS 
-============= */
+.middleDiv{width: 83%;height: 695px;border: 1px solid #d3d3d3;border-bottom:0px;position: absolute;top: 85px;left: 115px;}
+.container-hover {margin: 0 auto; max-width: 1060px;top: 50px;position: absolute;left:34px;}
 
-.container-hover {margin: 0 auto; max-width: 1060px;top: 150px;position: absolute;left: 120px;}
-/**{margin: 0; padding: 0; box-sizing: border-box;}*/
 .container-hover img{max-width: 100%; vertical-align: middle;}
 
 .container-hover ul{margin: 0 -1.5%;}
@@ -14,8 +12,7 @@ p{font-weight: 300; line-height: 20px; font-size: 14px; margin-bottom: 15px;}
 .btn{display: inline-block; padding: 5px 10px; font-size: 14px; color: #fff; border: 2px solid #4d92d9; background-color: #4d92d9; text-decoration: none; transition: 0.4s;}
 .btn:hover{background-color: transparent; color: #4d92d9; transition: 0.4s;}
 .text-desc{position: absolute; left: 0; top: 0; background-color: #fff; height: 100%; opacity: 0; width: 100%; padding: 20px;}
-/*= Reset CSS End
-================= *
+
 
 
 /* effect-2 css */
