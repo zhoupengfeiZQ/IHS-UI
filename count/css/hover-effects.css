@@ -1,5 +1,5 @@
 
-.middleDiv{width: 83%;height: 695px;border: 1px solid #d3d3d3;border-bottom:0px;position: absolute;top: 85px;left: 115px;}
+.middleDiv{width: 83%;height: 695px;border: 1px solid #d3d3d3;border-bottom:0px;border-top:0px;position: absolute;top: 85px;left: 115px;}
 .container-hover {margin: 0 auto; max-width: 1060px;top: 50px;position: absolute;left:34px;}
 
 .container-hover img{max-width: 100%; vertical-align: middle;}
@@ -12,8 +12,6 @@ p{font-weight: 300; line-height: 20px; font-size: 14px; margin-bottom: 15px;}
 .btn{display: inline-block; padding: 5px 10px; font-size: 14px; color: #fff; border: 2px solid #4d92d9; background-color: #4d92d9; text-decoration: none; transition: 0.4s;}
 .btn:hover{background-color: transparent; color: #4d92d9; transition: 0.4s;}
 .text-desc{position: absolute; left: 0; top: 0; background-color: #fff; height: 100%; opacity: 0; width: 100%; padding: 20px;}
-
-
 
 /* effect-2 css */
 .port-2{float: left; width: 100%; position: relative; overflow: hidden; text-align: center; border: 2px solid #d3d3d3/*rgba(255, 255, 255, 0.9)*/; perspective: 800px;}

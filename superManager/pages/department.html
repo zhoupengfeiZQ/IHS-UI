@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="../../js/easyui/themes/default/easyui.css"></link>  
+		<link rel="stylesheet" type="text/css" href="../../js/easyui/themes/icon.css"></link>   
+		<script type="text/javascript" src="../../js/jquery-1.4.4.min.js"></script>   
+		<script type="text/javascript" src="../../js/easyui/jquery.easyui.min.js"></script>
+		<title></title>
+		<style>
+			.page-bottom a:link,.page-bottom a:visited{color:rgba(255,255,255,.7);}
+			h6{margin: 10px;} 
+			body{margin: 0px;}
+			.logo{padding: 0px;}
+			.logo li{float: left;}
+			.logo img{width: 80px;height: 80px;margin-left: 100px;margin-top: 55px;}
+			.logoContain{width: 450px;height: 200px;float: left;}
+		</style>
+		<script type="text/javascript">
+	$(function(){
+		//指派之前的操作
+  		$("#tb_zhipai").click(function(){
+  			$('#cc').combobox({    
+				url:'${pageContext.request.contextPath}/ChanceManage/preZhiPai?userRoleId=4',    
+				valueField:'userId',   
+				textField:'userRealname'   		    
+			});
+			var rows=$('#salchance_list').datagrid('getChecked');
+			if(rows.length>0){
+				if(rows.length==1){
+		//获取对象详细信息 
+					$.post("${pageContext.request.contextPath}/ChanceManage/chanceListByPage",{chanNo:rows[0].chanNo},
+					function(data){
+						$("#chanNo2").val(data.rows[0].chanNo);
+						$("#chanCustName2").val(data.rows[0].chanCustName);//客户名字
+						$("#chanSource2").val(data.rows[0].chanSource);//机会来源
+						$("#chanRate2").val(data.rows[0].chanRate);//成功几率
+						$("#chanTitle2").val(data.rows[0].chanTitle);//概要
+						$("#chanLinkman2").val(data.rows[0].chanLinkman);
+						$("#chanMoblie2").val(data.rows[0].chanMoblie);
+						$("#chanDescription2").val(data.rows[0].chanDescription);//机会描述
+						$("#chanCreateBy2").val(data.rows[0].chanCreateBy);//创建人
+						$("#chanCreateDate2").val(data.rows[0].chanCreateDate);//创建时间
+						$("#cc").val(data.rows[0].chanDueTo);//指派给 */
+						$("#chanDueDate2").val(data.rows[0].chanDueDate);//指派时间 */
+					 	$("#chanTelephone2").val(data.rows[0].chanTelephone);//隐藏域
+					},"json");
+  		//指派窗口
+				$('#page_salChance_management_zhipaiDialog').dialog('open');
+				}else{
+					$.messager.show({
+					   title : '提示',
+					   msg : '不能同时指派多条记录！'
+				 });
+				}
+			}else{
+				$.messager.show({
+					   title : '提示',
+					   msg : '请勾选要指派的记录！'
+				 });
+			}
+		});  		
+  		
+  		
+  		
+  		
+  		//增加之前进入后台获取时间，触发点击弹出增加对话框，进行增加
+  		$("#tb_add").click(function(){
+  			$.post("${pageContext.request.contextPath}/ChanceManage/getAddTime",
+  			function(data){
+						$("#chanCreateDate").val(data);	
+					},
+			"application/json");
+  			$('#page_chance_management_addDialog').dialog('open');
+  		});
+  	
+  		//删除
+  		$("#tb_remove").click(function(){
+				var rows=$('#salchance_list').datagrid('getChecked');
+				var ids = [];
+				if(rows.length>0){
+					$.messager.confirm('确认','您是否要删除当前选中的项目？',function(r){
+        			if(r){
+        				$.each(rows,function(key,val){
+						ids.push(val.chanNo);
+					});
+				  
+					$.post("${pageContext.request.contextPath}/ChanceManage/deleteChance",{ids:ids.join(',')},
+					function(data){
+						if(data=="success"){
+							$('#salchance_list').datagrid('load');
+							$('#salchance_list').datagrid('unselectAll');
+						}
+					},
+					"application/json");
+					
+        			}
+        			
+				 });						
+				}else{
+					$.messager.show({
+					   title : '提示',
+					   msg : '请勾选要删除的记录！'
+					});
+				}
+			});
+  		
+  			//修改之前的操作
+  		$("#tb_edit").click(function(){
+			var rows=$('#salchance_list').datagrid('getChecked');
+			if(rows.length>0){
+				if(rows.length==1){
+					//获取对象详细信息 
+					$.post("${pageContext.request.contextPath}/ChanceManage/chanceListByPage",
+						{chanNo:rows[0].chanNo},
+						function(data){
+						alert(data.rows[0]);
+						$("#chanNo1").val(data.rows[0].chanNo);
+						$("#chanCustName1").val(data.rows[0].chanCustName);//客户名字
+						$("#chanSource1").val(data.rows[0].chanSource);//机会来源
+						$("#chanRate1").val(data.rows[0].chanRate);//成功几率
+						$("#chanTitle1").val(data.rows[0].chanTitle);//概要
+						$("#chanLinkman1").val(data.rows[0].chanLinkman);
+						$("#chanMoblie1").val(data.rows[0].chanMoblie);
+						$("#chanDescription1").val(data.rows[0].chanDescription);//机会描述
+						$("#chanCreateBy1").val(data.rows[0].chanCreateBy);//创建人
+						$("#chanCreateDate1").val(data.rows[0].chanCreateDate);//创建时间
+						$("#chanDueTo1").val(data.rows[0].chanDueTo);//指派给
+						$("#chanDueDate1").val(data.rows[0].chanDueDate);//指派时间
+					 	$("#chanTelephone1").val(data.rows[0].chanTelephone);//隐藏域
+					  	$("#chanStatus1").val(data.rows[0].chanStatus);//隐藏域
+					},
+					"json");
+  		//打开修改窗口
+				$('#page_salChance_management_updateDialog').dialog('open');
+				}else{
+					$.messager.show({
+					   title : '提示',
+					   msg : '不能同时修改多条记录！'
+				 });
+				}
+			}else{
+				$.messager.show({
+					   title : '提示',
+					   msg : '请勾选要修改的记录！'
+				 });
+			}
+		});
+  		/* 	数据列表分页 */
+  			$('#salchance_list').datagrid({  
+  				pageSize:5,
+				pageList : [3,5,10,15,20],  
+			    url:'${pageContext.request.contextPath}/ChanceManage/chanceListByPage', 
+			    columns:[[
+			       {field:'选择',checkbox:true},    
+			       {field:'chanNo',title:'编号',width:50},   
+			       {field:'chanCustName',title:'客户名称',width:200},
+			       {field:'chanTitle',title:'概要',width:300,align:'left'},
+			       {field:'chanLinkman',title:'联系人',width:100,align:'left'},
+			       {field:'chanMoblie',title:'联系电话',width:100,align:'left'},
+			       {field:'chanCreateDate',title:'创建时间',width:150,align:'left'},
+			    ]],
+			    pagination:true,
+			    loadMsg : '数据装载中......',
+			    toolbar: '#salchance_tb', 
+			});  
+			
+		  	$('#salchance_list').datagrid('getPager').pagination({
+				beforePageText: '第',
+				afterPageText: '页    共 {pages} 页',
+				displayMsg: '当前显示 {from} - {to} 条记录   共 {total} 条记录'  
+			});		
+			
+			$("#searchBtn").click(function(){
+				$("#salchance_list").datagrid("load",{"chanCustName":$("#roleName").val(),"chanTitle":$("#roleDesc").val(),
+				"chanLinkman":$("#linkMan").val()});
+				
+			});
+			
+  		});
+
+</script>
+	</head>
+	<body>
+		<iframe src="../../template/navbarTemplate.html" width="100%" scrolling="no" frameborder="no"></iframe>
+		<!--end导航条end-->
+		
+		<form action="#" id="searchForm">
+  		<fieldset>
+  			<legend>查询条件</legend>
+  		
+  			<table border="0" cellpadding="5" cellspacing="0">
+	   			<tr>
+	   				
+	   			
+	   				<td>客户名称:</td>
+	   				<td>
+	   					 <input type="text" id="roleName" name="roleName" data-options="required:true" style="width:150px;" /> 
+	   				</td>
+	   				<td>概要:</td>
+	   				<td>
+	   					 <input type="text" id="roleDesc" name="roleDesc" data-options="required:true" style="width:150px;" /> 
+	   				</td>
+	   				<td>联系人:</td>
+	   				<td>
+	   					 <input type="text" id="linkMan" name="roleDesc" data-options="required:true" style="width:150px;" /> 
+	   				</td>
+	   				 <td>
+	   					<a  id="searchBtn" class="easyui-linkbutton" data-options="iconCls:'icon-ok'">查询</a>
+	   				</td>
+	   		</tr>
+	   		</table>
+  		</fieldset>
+	   </form>
+  	
+  	 <!-- 新增窗体创建位置 -->
+	  <div id="page_chance_management_addDialog" class="easyui-dialog" title="新增用户" 
+		style="width:550px;height:400px;align:center;top:20px"   
+        data-options="iconCls:'icon-save',resizable:false,modal:true,closed:true,
+        buttons:[{
+        	text:'保存',
+			iconCls: 'icon-ok',
+			handler: function(){
+				$.post('${pageContext.request.contextPath}/ChanceManage/addsalChance',
+				$('#page_salChance_management_addform').serialize(),
+				function(data){
+					if(data=='success'){
+							$('#page_chance_management_addDialog').dialog('close');
+							$('#salchance_list').datagrid('load');
+							$('#salchance_list').datagrid('unselectAll');
+					}
+				},'application/json');
+			}
+		},{
+			text:'取消',
+			iconCls: 'icon-cancel',
+			handler: function(){
+				$('#page_chance_management_addDialog').dialog('close');
+				$('#salchance_list').datagrid('unselectAll');
+			}
+		}]">  				
+		<form id="page_salChance_management_addform" method="post"> 
+	   		<table border="0" cellpadding="5" cellspacing="0">
+	   			<tr>
+	   				<td>机会来源:</td>
+	   				<td>
+	   					 <input type="text" id="chanSource" name="chanSource" data-options="required:true" style="width:150px;" /> 
+	   				</td>
+	   			</tr>
+	   			<tr>
+	   				<td>客户名称:</td>
+	   				<td>
+	   					 <input  type="text" id="chanCustName" name="chanCustName" data-options="required:true" style="width:150px;" />*
+	   				</td>
+	  
+	   				<td>成功几率:</td>
+	   				<td>
+	   					 <input  type="text" id="chanRate" name="chanRate" data-options="required:true" style="width:150px;" />* 
+	   				</td>
+	   			</tr>
+	   			<tr>
+	   				<td>概要:</td>
+	   				<td colspan="3" >
+	   					<textarea rows="2" cols="50" id="chanTitle" name="chanTitle"></textarea>*
+	   					
+	   				</td>
+	   			</tr>
+	   			
+	   			<tr>
+	   				<td>联系人:</td>
+	   				<td>
+	   					 <input  type="text" id="chanLinkman" name="chanLinkman" data-options="required:true" style="width:150px;" /> 
+	   				</td>
+	  
+	   				<td>联系电话:</td>
+	   				<td>
+	   					 <input  type="text" id="chanMoblie" name="chanMoblie" data-options="required:true" style="width:150px;" /> 
+	   				</td>
+	   			</tr>
+	  			 <tr>
+	   				<td>机会描述:</td>
+	   				<td colspan="6">
+	   				
+	   				<textarea id="chanDescription" name="chanDescription" rows="6" cols="50" ></textarea>*
+	   					
+	   				</td>
+	   			</tr>
+	   			<tr>
+	   				<td>创建人:</td>
+	   				<td >
+	   					 <input   type="text" id="chanCreateBy" readonly="readonly"  value="${sessionScope.sysUser.userName}" name="chanCreateBy" data-options="required:true" style="width:150px;color: gray" /> *
+	   				</td>
+	  
+	   				<td>创建时间:</td>
+	   				<td >
+	   					 <input  type="text" id="chanCreateDate" readonly="readonly"  name="chanCreateDate" data-options="required:true" style="width:150px;color: gray" />* 
+	   				</td>
+	   			</tr>
+	   			<tr>
+	   				<td>指派给:</td>
+	   				<td >
+	   					 <input  type="text" id="chanDueTo" readonly="readonly" name="chanDueTo" data-options="required:true" style="width:150px;color: gray" /> 
+	   				</td >
+	   				<td>指派时间:</td>
+	   				<td>
+	   					<input id="chanDueDate"  readonly="readonly" name="chanDueDate" style="color: gray"/> 
+	   					<!-- 隐藏域 -->
+						<input type="hidden" id="chanStatus"  	name="chanStatus" value="0" >
+						<input type="hidden"  id="chanFlag"      name="chanFlag" value="1">
+						<input type="hidden" id="chanTelephone" name="chanTelephone" value="">
+	   				</td>
+	   			</tr>
+	   			
+	   		</table>
+   		</form>
+   		
+	</div>
+    <table id="salchance_list"></table>  
+    <!-- 工具栏 --> 
+  	<div id="salchance_tb">
+			<a class="easyui-linkbutton" id="tb_zhipai" data-options="iconCls:'icon-edit',plain:true" style="float:left;" title="指派"></a>
+			<div class="datagrid-btn-separator"></div>
+			<a  class="easyui-linkbutton" id="tb_edit" data-options="iconCls:'icon-edit',plain:true" style="float:left;"title="编辑"></a>
+			<div class="datagrid-btn-separator"></div>
+			<a  class="easyui-linkbutton" id="tb_add" data-options="iconCls:'icon-add',plain:true" style="float:left;" title="增加"></a>
+			<div class="datagrid-btn-separator"></div>
+			<a  class="easyui-linkbutton" id="tb_remove" data-options="iconCls:'icon-remove',plain:true" style="float:left;" title="删除"></a>
+			<div class="datagrid-btn-separator"></div>
+	</div>	
+	 <!-- 修改窗体创建位置 -->
+	  <div id="page_salChance_management_updateDialog" class="easyui-dialog" title="修改用户" 
+		style="width:550px;height:400px;align:center;top:20px"   
+        data-options="iconCls:'icon-save',resizable:false,modal:true,closed:true,
+        buttons:[{
+        	text:'保存',
+			iconCls: 'icon-ok',
+			handler: function(){
+				$.post('${pageContext.request.contextPath}/ChanceManage/updatesalChance',
+				$('#page_salChance_management_updateform').serialize(),
+				function(data){
+					if(data=='success'){
+							$('#page_salChance_management_updateDialog').dialog('close');
+							$('#salchance_list').datagrid('load');
+							$('#salchance_list').datagrid('unselectAll');
+					}
+				},'application/json');
+			}
+		},{
+			text:'取消',
+			iconCls: 'icon-cancel',
+			handler: function(){
+				$('#page_salChance_management_updateDialog').dialog('close');
+				$('#salchance_list').datagrid('unselectAll');
+			}
+		}]">  
+		
+		<form id="page_salChance_management_updateform" method="post"> 
+	   		<table border="0" cellpadding="5" cellspacing="0">
+	   			<tr>
+	   				<td>编号:</td>
+	   				<td>
+	   					 <input  type="text" id="chanNo1" readonly="readonly" name="chanNo" data-options="required:true" style="width:150px;color: gray" /> 
+	   				</td>
+	   				<td>机会来源:</td>
+	   				<td>
+	   					 <input type="text" id="chanSource1" name="chanSource" data-options="required:true" style="width:150px;" /> 
+	   				</td>
+	   			</tr>
+	   			
+	   			<tr>
+	   				<td>客户名称:</td>
+	   				<td>
+	   					 <input  type="text" id="chanCustName1" name="chanCustName" data-options="required:true" style="width:150px;" /> 
+	   				</td>
+	  
+	   				<td>成功几率:</td>
+	   				<td>
+	   					 <input  type="text" id="chanRate1" name="chanRate" data-options="required:true" style="width:150px;" /> 
+	   				</td>
+	   			</tr>
+	   			<tr>
+	   				<td>概要:</td>
+	   				<td colspan="3" >
+	   					<textarea rows="2" cols="50" id="chanTitle1" name="chanTitle"></textarea>
+	   					
+	   				</td>
+	   			</tr>
+	   			
+	   			<tr>
+	   				<td>联系人:</td>
+	   				<td>
+	   					 <input  type="text" id="chanLinkman1" name="chanLinkman" data-options="required:true" style="width:150px;" /> 
+	   				</td>
+	  
+	   				<td>联系电话:</td>
+	   				<td>
+	   					 <input  type="text" id="chanMoblie1" name="chanMoblie" data-options="required:true" style="width:150px;" /> 
+	   				</td>
+	   			</tr>
+	  			 <tr>
+	   				<td>机会描述:</td>
+	   				<td colspan="6">
+	   				
+	   				<textarea id="chanDescription1" name="chanDescription" rows="6" cols="50" ></textarea>
+	   				</td>
+	   			</tr>
+	   			<tr>
+	   				<td>创建人:</td>
+	   				<td >
+	   					 <input   type="text" id="chanCreateBy1" readonly="readonly" name="chanCreateBy" data-options="required:true" style="width:150px;color: gray" /> 
+	   				</td>
+	  
+	   				<td>创建时间:</td>
+	   				<td >
+	   					 <input  type="text" id="chanCreateDate1" readonly="readonly" name="chanCreateDate" data-options="required:true" style="width:150px;color: gray" /> 
+	   				</td>
+	   			</tr>
+	   			<tr>
+	   				<td>指派给:</td>
+	   				<td >
+	   					 <input  type="text" id="chanDueTo1" readonly="readonly" name="chanDueTo" data-options="required:true" style="width:150px;color: gray" /> 
+	   				</td >
+	   				<td>指派时间:</td>
+	   				<td>
+	   					<input id="chanDueDate1"  readonly="readonly" name="chanDueDate"/> 
+	   					<!-- 隐藏域 -->
+						<input type="hidden" id="chanStatus1"  	name="chanStatus" value="0">
+						<input type="hidden"  id="chanFlag"      name="chanFlag" value="1">
+						<input type="hidden" id="chanTelephone1" name="chanTelephone" value="" >
+	   				</td>
+	   			</tr>
+	   			
+	   		</table>
+   		</form>
+   		
+	</div>
+	
+	
+		
+	 <!-- 指派窗体创建位置 -->
+	  <div id="page_salChance_management_zhipaiDialog" class="easyui-dialog" title="指派客户经理" 
+		style="width:550px;height:400px;align:center;top:20px"   
+        data-options="iconCls:'icon-save',resizable:false,modal:true,closed:true,
+        buttons:[{
+        	text:'保存',
+			iconCls: 'icon-ok',
+			handler: function(){
+				$.post('${pageContext.request.contextPath}/ChanceManage/zhipaisalChance',
+				$('#page_salChance_management_zhipaiform').serialize(),
+				function(data){
+					if(data=='success'){
+							$('#page_salChance_management_zhipaiDialog').dialog('close');
+							$('#salchance_list').datagrid('load');
+							$('#salchance_list').datagrid('unselectAll');
+					}
+				},'application/json');
+			}
+		},{
+			text:'取消',
+			iconCls: 'icon-cancel',
+			handler: function(){
+				$('#page_salChance_management_zhipaiDialog').dialog('close');
+				$('#salchance_list').datagrid('unselectAll');
+			}
+		}]">  
+		
+		<form id="page_salChance_management_zhipaiform" method="post"> 
+	   		<table border="0" cellpadding="5" cellspacing="0">
+	   			<tr>
+	   				<td>编号:</td>
+	   				<td>
+	   					 <input  type="text" id="chanNo2" readonly="readonly" name="chanNo" data-options="required:true" style="width:150px;color: gray" /> 
+	   				</td>
+	   				<td>机会来源:</td>
+	   				<td>
+	   					 <input type="text" id="chanSource2"  readonly="readonly" name="chanSource" data-options="required:true" style="width:150px;color: gray" /> 
+	   				</td>
+	   			</tr>
+	   			
+	   			<tr>
+	   				<td>客户名称:</td>
+	   				<td>
+	   					 <input  type="text" id="chanCustName2"  readonly="readonly" name="chanCustName" data-options="required:true" style="width:150px;color: gray" /> 
+	   				</td>
+	  
+	   				<td>成功几率:</td>
+	   				<td>
+	   					 <input  type="text" id="chanRate2"  readonly="readonly"  name="chanRate" data-options="required:true" style="width:150px;color: gray" /> 
+	   				</td>
+	   			</tr>
+	   			<tr>
+	   				<td>概要:</td>
+	   				<td colspan="3" >
+	   					<textarea rows="2" cols="50" style="color: gray" readonly="readonly" id="chanTitle2" name="chanTitle"></textarea>
+	   					
+	   				</td>
+	   			</tr>
+	   			
+	   			<tr>
+	   				<td>联系人:</td>
+	   				<td>
+	   					 <input  type="text" id="chanLinkman2" readonly="readonly"  name="chanLinkman" data-options="required:true" style="width:150px;color: gray" /> 
+	   				</td>
+	  
+	   				<td>联系电话:</td>
+	   				<td>
+	   					 <input  type="text" id="chanMoblie2"  readonly="readonly" name="chanMoblie" data-options="required:true" style="width:150px;color: gray" /> 
+	   				</td>
+	   			</tr>
+	  			 <tr>
+	   				<td>机会描述:</td>
+	   				<td colspan="6">
+	   				
+	   				<textarea id="chanDescription2"  readonly="readonly" style="color: gray" name="chanDescription" rows="6" cols="50" ></textarea>
+	   				</td>
+	   			</tr>
+	   			<tr>
+	   				<td>创建人:</td>
+	   				<td >
+	   					 <input   type="text" id="chanCreateBy2" readonly="readonly" name="chanCreateBy" data-options="required:true" style="width:150px;color: gray" /> 
+	   				</td>
+	  
+	   				<td>创建时间:</td>
+	   				<td >
+	   					 <input  type="text" id="chanCreateDate2" readonly="readonly" name="chanCreateDate" data-options="required:true" style="width:150px;color: gray" /> 
+	   				</td>
+	   			</tr>
+	   			<tr>
+	   				<td>指派给:</td>
+	   				<td >
+	   					 <input  type="text" id="cc" class="easyui-combobox"  name="chanDueTo"  style="width:150px;" /> 
+	   				</td >
+	   				<td>指派时间:</td>
+	   				<td>
+	   					<input id="chanDueDate2"  name="chanDueDate" readonly="readonly" style="color: gray" /> 
+	   					<!-- 隐藏域 -->
+						<input type="hidden" id="chanStatus"  	name="chanStatus" value="1">
+						<input type="hidden"  id="chanFlag"      name="chanFlag" value="1">
+						<input type="hidden" id="chanTelephone2" name="chanTelephone" value="">
+	   				</td>
+	   			</tr>
+	   			
+	   		</table>
+   		</form>
+	</div>
+	<div class="page-bottom" style="width: 100%;height: 250px;background-color:black;position:absolute;top: 700px;">
+		<div class="logoContain">
+			<ul class="logo">
+				<li><img src="../img/hospital2.png"/></li>
+				<li><img src="../img/hospital3.png"/></li>
+			</ul>
+			
+		</div class="logoContain">
+		<div style="float: left;margin-top: 70px;">
+			<h6 style="color: white;text-align: center;color: #60606d;">All start from the heart.</h6>
+			<h6 style="color: white;text-align: center;color: #60606d;">Interconnection Hospital System 1.0 author:pengfei.zhou</h6>
+			<h6 style="color: white;text-align: center;color: #60606d;"> IHS&nbsp;遵循 <a href="http://scripts.sil.org/OFL">SIL OFL 1.1 协议</a>&middot;代码遵循 <a href="http://opensource.org/licenses/mit-license.html">MIT协议</a>&middot;文档遵循 <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0 协议</a></h6>
+			<h6 style="color: white;text-align: center;color: #60606d;"><a href="https://github.com/FortAwesome/Font-Awesome">GitHub项目</a> </h6>
+			
+		</div>
+		
+		<div class="logoContain">
+			<ul class="logo">
+				<li><img src="../img/hospital4.png"/></li>
+				<li><img src="../img/hospital5.png"/></li>
+			</ul>
+		</div>
+	</div>
+	</body>
+</html>
