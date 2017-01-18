@@ -17,7 +17,7 @@
 			.logoContain{width: 450px;height: 200px;float: left;}
 		</style>
 		<script type="text/javascript">
-	$(function(){
+		$(function(){
 		//指派之前的操作
   		$("#tb_zhipai").click(function(){
   			$('#cc').combobox({    
@@ -182,10 +182,12 @@
 </script>
 	</head>
 	<body>
-		<iframe src="../../template/navbarTemplate.html" width="100%" scrolling="no" frameborder="no"></iframe>
-		<!--end导航条end-->
 		
-		<form action="#" id="searchForm">
+		<iframe src="../../template/navbarTemplate.html" width="100%" scrolling="no" frameborder="no" style="z-index: 999;position: fixed;"></iframe>
+		<!--end导航条end-->
+		<div style="width: 98%;height: 580px;border: 1px solid red;position:absolute;top: 150px;margin-left:20px ;">
+			<div style="width: 73%;height: 578px;border: 1px solid red;float: left;">
+				<form action="#" id="searchForm">
   		<fieldset>
   			<legend>查询条件</legend>
   		
@@ -543,14 +545,18 @@
 	   		</table>
    		</form>
 	</div>
-	<div class="page-bottom" style="width: 100%;height: 250px;background-color:black;position:absolute;top: 700px;">
+			</div>
+			<div style="width: 23%;height: 578px;border: 1px solid red;float: left;margin-left: 30px;"></div>
+		</div>
+		
+	<div class="page-bottom" style="width: 100%;height: 250px;background-color:black;position:absolute;top: 780px;">
 		<div class="logoContain">
 			<ul class="logo">
 				<li><img src="../img/hospital2.png"/></li>
 				<li><img src="../img/hospital3.png"/></li>
 			</ul>
 			
-		</div class="logoContain">
+		</div >
 		<div style="float: left;margin-top: 70px;">
 			<h6 style="color: white;text-align: center;color: #60606d;">All start from the heart.</h6>
 			<h6 style="color: white;text-align: center;color: #60606d;">Interconnection Hospital System 1.0 author:pengfei.zhou</h6>
