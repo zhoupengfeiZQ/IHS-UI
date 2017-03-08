@@ -3,64 +3,117 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<link rel="stylesheet" type="text/css" href="../../../js/easyui/themes/default/easyui.css"></link>
-		<link rel="stylesheet" type="text/css" href="../../../js/easyui/themes/icon.css"></link>
-		<link rel="stylesheet" type="text/css" href="../../../js/easyui/demo/demo.css"></link>
-		
+		<link rel="stylesheet" type="text/css" href="../../../../js/easyui/themes/default/easyui.css"></link>
+		<link rel="stylesheet" type="text/css" href="../../../../js/easyui/themes/icon.css"></link>
+		<link rel="stylesheet" type="text/css" href="../../../../js/easyui/demo/demo.css"></link>
+		<link rel="stylesheet" href="../../../../css/bottom.css" />
 		<script src="http://www.jq22.com/jquery/1.4.4/jquery.min.js"></script>
 		<!--<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script>-->
-    	<script type="text/javascript" src="../../../js/easyui/jquery.easyui.min.js"></script>
-		<link rel="stylesheet" type="text/css" href="css/style5.css" />
-		<link rel="stylesheet" type="text/css" href="css/jquery.confirm.css" />
+    	<script type="text/javascript" src="../../../../js/easyui/jquery.easyui.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/style5.css" />
+		<link rel="stylesheet" type="text/css" href="../css/jquery.confirm.css" />
 		
 		<title></title>
 		<style>
-			.datagrid-row-selected{background-color:#e0ecff;}
-			.page-bottom a:link,
-			.page-bottom a:visited {
-				color: rgba(255, 255, 255, .7);
+			.box-wrapper {
+				width: 97%;
+				height: 800px;
+				position: absolute;
+				top: 155px;
+				margin-left: 20px;
+				background-color: white;
+				border: 2px solid #ccc;
+				border-radius: 6px
 			}
 			
-			h6 {
-				margin: 10px;
+			.box-header {
+				margin-top: 1px;
+				height: 50px;
+				border-bottom: 1px solid #ccc;
 			}
+			
+			.box-content {
+				padding: 40px 0px 20px 20px;
+			}
+			
+			.box-content-left {
+				width: 75%;
+				height: 578px;
+				border: 1px solid #ccc;
+				float: left;
+				border-radius: 6px;
+				padding-top: 20px;
+			}
+			
+			.box-content-right {
+				width: 20%;
+				height: 598px;
+				border: 1px solid #ccc;
+				float: left;
+				margin-left: 30px;
+			}
+			
+			.button {
+				border-radius: 4px;
+				font-family: Verdana, Arial, sans-serif;
+				display: inline-block;
+				background: #459300 url(../../../../img/bg-button-green.gif) top left repeat-x !important;
+				border: 1px solid #459300 !important;
+				padding: 4px 7px 4px 7px !important;
+				color: #fff !important;
+				font-size: 15px !important;
+				cursor: pointer;
+			}
+			
+			a {
+				text-decoration: none;
+			}
+			
+			.button:hover {
+				text-decoration: underline;
+			}
+			
+			.panel-body {
+				border-color: #ccc;
+				border-left: 0;
+				border-right: 0;
+			}
+			
+			
+			.datagrid-row-selected {
+				background-color: #e0ecff;
+			}
+			
 			
 			body {
 				margin: 0px;
-			}
-			
-			.logo {
 				padding: 0px;
+				background: url(../../../../img/bg-radial-gradient.gif) fixed 0px top no-repeat;
 			}
 			
-			.logo li {
-				float: left;
-			}
-			
-			.logo img {
-				width: 80px;
-				height: 80px;
-				margin-left: 100px;
-				margin-top: 55px;
-			}
-			
-			.logoContain {
-				width: 447px;
-				height: 200px;
-				float: left;
-			}
 			
 			#little {
-				height: 177px;
+				height: 195px;
 				background-color: black;
 				position: absolute;
-				width: 303px;
+				width: 264px;
 			}
 			
 			#little:hover {
 				background-color: #419641;
 			}
-			.datagrid-view2{height: 360px;}
+			
+			.little-text {
+				color: white;
+				font-size: 22px;
+				margin: 20px;
+				position: absolute;
+				top: 48px;
+			}
+			
+			.datagrid-view2 {
+				height: 360px;
+			}
 		</style>
 		<script type="text/javascript">
 			function returnHome(){
@@ -123,6 +176,7 @@
 					method: 'get',
 					singleSelect: true,
 					fitColumns:true,
+					scrollbarSize :0,
 					pageSize: 10,
 					pageList: [3, 5, 10, 15],
 					url: 'http://localhost:9090/ihs/departs',
@@ -189,7 +243,7 @@
 				}else{
 					
 					$.confirm({
-							'title'		: 'Delete Confirmation',
+							'title'		: 'update Confirmation',
 							'message'	: 'please choose the item to update <br />',
 							'buttons'	: {
 								'ok'	: {
@@ -271,13 +325,17 @@
 		</script>
 	</head>
 
-	<body style="background-color: #F5F5F5;">
+	<body style="background-color: #f0f0f0;">
 		<!--end导航条end-->
-		<div style="width: 98%;height: 580px;position:absolute;top: 180px;margin-left:20px ;">
-			<div style="width: 73%;height: 578px;border: 1px solid #EBEBEB;float: left;background-color: white;">
-				<form action="#" id="searchForm" style="margin-bottom: 20px;">
-					<fieldset>
-						<legend>查询条件</legend>
+
+		<div class="box-wrapper">
+			<div class="box-header">
+
+			</div>
+			<div class="box-content">
+				<div class="box-content-left">
+					<form action="#" id="searchForm" style="margin-bottom: 20px;">
+						<fieldset style="border: 0;">
 
 						<table border="0" cellpadding="5" cellspacing="0">
 							<tr>
@@ -291,7 +349,7 @@
 									<input type="text" id="summary" name="summary" data-options="required:true" style="width:150px;" />
 								</td>
 								<td>
-									<a id="searchBtn" class="easyui-linkbutton" data-options="iconCls:'icon-ok'">查询</a>
+									<a class="button" id="searchBtn">Search</a>
 								</td>
 							</tr>
 						</table>
@@ -299,70 +357,58 @@
 				</form>
 
 				<table id="depart_list"></table>
-				<!-- 工具栏 -->
-				<div id="depart_tb">
-					<a class="easyui-linkbutton" id="tb_edit" data-options="iconCls:'icon-edit',plain:true" style="float:left;" onclick="beforeUpdate()" title="编辑"></a>
-					<div class="datagrid-btn-separator"></div>
-					<a class="easyui-linkbutton" id="tb_ad" data-options="iconCls:'icon-add',plain:true" style="float:left;" onclick="insert()" title="增加"></a>
-					<div class="datagrid-btn-separator"></div>
-					<a class="easyui-linkbutton" id="tb_remove" data-options="iconCls:'icon-remove',plain:true" style="float:left;" title="删除"></a>
-					<div class="datagrid-btn-separator"></div>
+					<!-- 工具栏 -->
+					<div id="depart_tb">
+						<a class="easyui-linkbutton" id="tb_edit" data-options="iconCls:'icon-edit',plain:true" style="float:left;" onclick="beforeUpdate()" title="编辑"></a>
+						<div class="datagrid-btn-separator"></div>
+						<a class="easyui-linkbutton" id="tb_ad" data-options="iconCls:'icon-add',plain:true" style="float:left;" onclick="insert()" title="增加"></a>
+						<div class="datagrid-btn-separator"></div>
+						<a class="easyui-linkbutton" id="tb_remove" data-options="iconCls:'icon-remove',plain:true" style="float:left;" title="删除"></a>
+						<div class="datagrid-btn-separator"></div>
+					</div>
+
+					<br />
+					<hr />
+					<br />
+					<a class="button" style="margin-right: 15px;margin-left: 5px;" onclick="update()">up-Finish</a>
+
+					<a class="button" onclick="preserve()">Preserve</a>
+
 				</div>
-				
-				
-				<!--按钮-->
-				<div class="container">
-					<div class="content">
-						<div class="button-wrapper">
-							<a href="javascript:;" class="a-btn" onclick="update()">
-								<span class="a-btn-text">修 改</span>
-							</a>
-						</div>
-		            </div>
-		            <div class="content">
-						<div class="button-wrapper">
-							<a href="javascript:;" class="a-btn" onclick="preserve()">
-								<span class="a-btn-text">保  存</span>
-							</a>
-						</div>
-		            </div>
-		        </div>
-				<!--按钮 end-->
-				
-				
-			</div>
-			<div style="width: 23%;height: 578px;border: 1px solid #EBEBEB;float: left;margin-left: 30px;background-color: white;">
-				<div style="height: 46px;background-color: #FF6600;margin-bottom: 4px;"></div>
-				<img src="../../img/right.jpg" height="350px" width="301px" />
-				<div id="little">
-					<div style="color: white;font-size: 22px;margin: 20px;position: absolute;top: 48px;">Dedication to the heart</div>
+				<div class="box-content-right">
+					<div style="height: 46px;background-color: #FF6600;margin-bottom: 4px;"></div>
+					<img src="../../../img/right.jpg" height="350px" width="264px" />
+					<div id="little">
+						<div class="little-text">Dedication to the heart</div>
+					</div>
 				</div>
 			</div>
 		</div>
 
-		<div class="page-bottom" style="width: 100%;height: 250px;background-color:black;position:absolute;top: 850px;">
+		<div class="page-bottom">
 			<div class="logoContain">
 				<ul class="logo">
-					<li><img src="../../img/hospital2.png" /></li>
-					<li><img src="../../img/hospital3.png" /></li>
+					<li><img src="../../../img/hospital2.png" /></li>
+					<li><img src="../../../img/hospital3.png" /></li>
 				</ul>
 
 			</div>
-			<div style="float: left;margin-top: 70px;">
-				<h6 style="color: white;text-align: center;color: #60606d;">All start from the heart.</h6>
-				<h6 style="color: white;text-align: center;color: #60606d;">Interconnection Hospital System 1.0 author:pengfei.zhou</h6>
-				<h6 style="color: white;text-align: center;color: #60606d;"> IHS&nbsp;遵循 <a href="http://scripts.sil.org/OFL">SIL OFL 1.1 协议</a>&middot;代码遵循 <a href="http://opensource.org/licenses/mit-license.html">MIT协议</a>&middot;文档遵循 <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0 协议</a></h6>
-				<h6 style="color: white;text-align: center;color: #60606d;"><a href="https://github.com/FortAwesome/Font-Awesome">GitHub项目</a> </h6>
+			<div class="protocol">
+				<h6>All start from the heart.</h6>
+				<h6>Interconnection Hospital System 1.0 author:pengfei.zhou</h6>
+				<h6> IHS&nbsp;遵循 <a href="http://scripts.sil.org/OFL">SIL OFL 1.1 协议</a>&middot;代码遵循 <a href="http://opensource.org/licenses/mit-license.html">MIT协议</a>&middot;文档遵循 <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0 协议</a></h6>
+				<h6><a href="https://github.com/FortAwesome/Font-Awesome">GitHub项目</a> </h6>
 
 			</div>
 
 			<div class="logoContain">
 				<ul class="logo">
-					<li><img src="../../img/hospital4.png" /></li>
-					<li><img src="../../img/hospital5.png" /></li>
+					<li><img src="../../../img/hospital4.png" /></li>
+					<li><img src="../../../img/hospital5.png" /></li>
 				</ul>
 			</div>
 		</div>
 	</body>
-<script type="text/javascript" src="js/jquery.confirm.js"></script>
+	<script type="text/javascript" src="../js/jquery.confirm.js"></script>
+
 </html>

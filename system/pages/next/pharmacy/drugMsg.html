@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="../../../../js/easyui/themes/default/easyui.css"></link>
+		<link rel="stylesheet" type="text/css" href="../../../../js/easyui/themes/icon.css"></link>
+		<link rel="stylesheet" type="text/css" href="../../../../js/easyui/demo/demo.css"></link>
+		<link rel="stylesheet" href="../../../../css/bottom.css" />
+		<script src="http://www.jq22.com/jquery/1.4.4/jquery.min.js"></script>
+		<script type="text/javascript" src="../../../../js/easyui/jquery.easyui.min.js"></script>
+
+		<link rel="stylesheet" type="text/css" href="../css/jquery.confirm.css" />
+
+		<style>
+			.box-wrapper {
+				width: 97%;
+				height: 800px;
+				position: absolute;
+				top: 155px;
+				margin-left: 20px;
+				background-color: white;
+				border: 2px solid #ccc;
+				border-radius: 6px
+			}
+			
+			.box-header {
+				margin-top: 1px;
+				height: 50px;
+				border-bottom: 1px solid #ccc;
+			}
+			
+			.box-content {
+				padding: 40px 0px 20px 20px;
+			}
+			
+			.box-content-left {
+				width: 75%;
+				height: 578px;
+				border: 1px solid #ccc;
+				float: left;
+				border-radius: 6px;
+				padding-top: 20px;
+			}
+			
+			.box-content-right {
+				width: 20%;
+				height: 598px;
+				border: 1px solid #ccc;
+				float: left;
+				margin-left: 30px;
+			}
+			
+			.button {
+				border-radius: 4px;
+				font-family: Verdana, Arial, sans-serif;
+				display: inline-block;
+				background: #459300 url(../../../../img/bg-button-green.gif) top left repeat-x !important;
+				border: 1px solid #459300 !important;
+				padding: 4px 7px 4px 7px !important;
+				color: #fff !important;
+				font-size: 15px !important;
+				cursor: pointer;
+			}
+			
+			a {
+				text-decoration: none;
+			}
+			
+			.button:hover {
+				text-decoration: underline;
+			}
+			
+			.panel-body {
+				border-color: #ccc;
+				border-left: 0;
+				border-right: 0;
+			}
+			
+			
+			.datagrid-row-selected {
+				background-color: #e0ecff;
+			}
+			
+			body {
+				margin: 0px;
+				padding: 0px;
+				background: url(../../../../img/bg-radial-gradient.gif) fixed 0px top no-repeat;
+			}
+			
+			
+			#little {
+				height: 195px;
+				background-color: black;
+				position: absolute;
+				width: 264px;
+			}
+			
+			#little:hover {
+				background-color: #419641;
+			}
+			
+			.little-text {
+				color: white;
+				font-size: 22px;
+				margin: 20px;
+				position: absolute;
+				top: 48px;
+			}
+			
+			.datagrid-view2 {
+				height: 360px;
+			}
+		</style>
+		<script type="text/javascript">
+			function returnHome(){
+				alert($("#home").val());
+				$("#home").click();
+			};
+			
+			$(function() {
+				//删除
+				$("#tb_remove").click(function() {
+					var row = $('#depart_list').datagrid('getChecked');
+					if(row.length > 0) {
+						$.confirm({
+							'title'		: 'Delete Confirmation',
+							'message'	: 'You are sure to delete this item? <br />',
+							'buttons'	: {
+								'Yes'	: {
+									'class'	: 'blue',
+									'action': function(){
+										$.ajax({
+											  url:"http://localhost:9090/ihs/drugs/"+row[0].drug_id,
+											  type:'DELETE',
+											  contentType:"application/json; charset=utf-8",
+											  dataType:"json",
+											  success: function(data){
+											    if(data.result == true) {
+															$('#depart_list').datagrid('load');
+															$('#depart_list').datagrid('unselectAll');
+														}
+											  }
+											})
+											
+									}
+								},
+								'No'	: {
+									'class'	: 'gray',
+									'action': function(){}	
+								}
+							}
+						});
+						
+					} else {
+						$.confirm({
+							'title'		: 'Delete Confirmation',
+							'message'	: 'please choose the item to delete <br />',
+							'buttons'	: {
+								'ok'	: {
+									'class'	: 'blue',
+									'action': function(){
+										
+									}
+								}
+							}
+						});
+					}
+				});
+
+				/* 	数据列表分页 */
+				$('#depart_list').datagrid({
+					method: 'get',
+					singleSelect: true,
+					fitColumns:true,
+					scrollbarSize :0,
+					pageSize: 10,
+					pageList: [3, 5, 10, 15],
+					url: 'http://localhost:9090/ihs/drugs',
+					columns: [
+						[{
+							field: '选择',
+							checkbox: true
+						}, {
+							field: 'drug_id',
+							title: '药品编号',
+							width: 150							
+						}, {
+							field: 'drug_name',
+							title: '药品名称',
+							width: 100,
+							editor: 'text'
+						}, {
+							field: 'composition',
+							title: '药品成分',
+							width: 100,
+							editor: 'text'
+						}, {
+							field: 'price',
+							title: '价格',
+							width: 100,
+							editor: 'text'
+						}, {
+							field: 'package_unit',
+							title: '包装单位',
+							width: 70,
+							editor: 'text'
+						}, {
+							field: 'efficacy',
+							title: '功效',
+							width: 100,
+							editor: 'text'
+						},{
+							field: 'matters',
+							title: '注意事项',
+							width: 100,
+							align: 'left',
+							editor: 'text'
+						}, {
+							field: 'nature',
+							title: '药品性质',
+							width: 80,
+							align: 'left',
+							editor: 'text'
+						}, {
+							field: 'label',
+							title: '药品标签',
+							width: 80,
+							align: 'left',
+							editor: 'text'
+						},{
+							field: 'number',
+							title: '药品量',
+							width: 100,
+							align: 'left',
+							editor: 'text'
+						}, ]
+					],
+					pagination: true,
+					loadMsg: '数据装载中......',
+					toolbar: '#depart_tb',
+				});
+
+				$('#depart_list').datagrid('getPager').pagination({
+					beforePageText: '第',
+					afterPageText: '页    共 {pages} 页',
+					displayMsg: '当前显示 {from} - {to} 条记录   共 {total} 条记录'
+				});
+
+				$("#searchBtn").click(function() {
+
+					$("#depart_list").datagrid("load", {
+						"drugName": $("#drug_name").val(),
+						"nature": $("#nature").val(),
+						"label": $("#label").val()
+					});
+
+				});
+
+			});
+			//编辑前
+			function beforeUpdate(){
+				var row = $('#depart_list').datagrid('getSelected');
+				if(row) {
+					var index = $('#depart_list').datagrid('getRowIndex', row);
+					$('#depart_list').datagrid('selectRow', index);
+					$('#depart_list').datagrid('beginEdit', index);
+					
+				}else{
+					
+					$.confirm({
+							'title'		: 'update Confirmation',
+							'message'	: 'please choose the item to update <br />',
+							'buttons'	: {
+								'ok'	: {
+									'class'	: 'blue',
+									'action': function(){
+										
+									}
+								}
+							}
+						});
+					
+				}
+			}
+			//保存编辑
+			function update(){
+				var row = $('#depart_list').datagrid('getSelected');
+				if(row){
+					var index = $('#depart_list').datagrid('getRowIndex', row);
+					$("#depart_list").datagrid('endEdit', index); 
+					$.ajax({
+							  url:"http://localhost:9090/ihs/drugs/"+row.drug_id,
+							  type:'PUT',
+							  data:JSON.stringify({'drug_name':row.drug_name,'composition':row.composition,'price':row.price,'package_unit':row.package_unit,'efficacy':row.efficacy,'matters':row.matters,'nature':row.nature,'label':row.label,'number':row.number}),
+							  contentType:"application/json; charset=utf-8",
+							  dataType:"json",
+							  success: function(data){
+							    if(data.result == true) {
+											$('#depart_list').datagrid('load');
+											$('#depart_list').datagrid('unselectAll');
+										}
+							  }
+							})
+						
+				}
+			}
+			
+			
+			//新增一行		
+			function insert() {
+				var row = $('#depart_list').datagrid('getSelected');
+				if(row) {
+					var index = $('#depart_list').datagrid('getRowIndex', row);
+				} else {
+					index = 0;
+				}
+				$('#depart_list').datagrid('insertRow', {
+					index: index,
+					row: {
+						id: ''
+					}
+				});
+				
+				$('#depart_list').datagrid('selectRow', index);
+				$('#depart_list').datagrid('beginEdit', index);
+			}
+			//保存
+			function preserve(){
+				var row = $('#depart_list').datagrid('getSelected');
+				if(row){
+					var index = $('#depart_list').datagrid('getRowIndex', row);
+					$("#depart_list").datagrid('endEdit', index); 
+					
+					$.ajax({
+							  url:"http://localhost:9090/ihs/drugs",
+							  type:"POST",
+							   data:JSON.stringify({'drug_name':row.drug_name,'composition':row.composition,'price':row.price,'package_unit':row.package_unit,'efficacy':row.efficacy,'matters':row.matters,'nature':row.nature,'label':row.label,'number':row.number}),
+							  contentType:"application/json; charset=utf-8",
+							  dataType:"json",
+							  success: function(data){
+							    if(data.result == true) {
+											$('#depart_list').datagrid('load');
+											$('#depart_list').datagrid('unselectAll');
+										}
+							  }
+							})
+						
+				}
+			}
+		</script>
+	</head>
+
+	<body style="background-color: #f0f0f0;">
+		<!--end导航条end-->
+
+		<div class="box-wrapper">
+			<div class="box-header">
+
+			</div>
+			<div class="box-content">
+				<div class="box-content-left">
+					<form action="#" id="searchForm" style="margin-bottom: 20px;">
+						<fieldset style="border: 0;">
+
+						<table border="0" cellpadding="5" cellspacing="0">
+							<tr>
+
+								<td>药品名称:</td>
+								<td>
+									<input type="text" id="drug_name" name="drug_name" data-options="required:true" style="width:150px;" />
+								</td>
+								<td>药品性质:</td>
+								<td>
+									<input type="text" id="nature" name="nature" data-options="required:true" style="width:150px;" />
+								</td>
+								<td>药品标签:</td>
+								<td>
+									<input type="text" id="label" name="label" data-options="required:true" style="width:150px;" />
+								</td>
+								<td>
+									<a class="button" id="searchBtn">Search</a>
+								</td>
+							</tr>
+						</table>
+					</fieldset>
+				</form>
+
+				<table id="depart_list"></table>
+					<!-- 工具栏 -->
+					<div id="depart_tb">
+						<a class="easyui-linkbutton" id="tb_edit" data-options="iconCls:'icon-edit',plain:true" style="float:left;" onclick="beforeUpdate()" title="编辑"></a>
+						<div class="datagrid-btn-separator"></div>
+						<a class="easyui-linkbutton" id="tb_ad" data-options="iconCls:'icon-add',plain:true" style="float:left;" onclick="insert()" title="增加"></a>
+						<div class="datagrid-btn-separator"></div>
+						<a class="easyui-linkbutton" id="tb_remove" data-options="iconCls:'icon-remove',plain:true" style="float:left;" title="删除"></a>
+						<div class="datagrid-btn-separator"></div>
+					</div>
+
+					<br />
+					<hr />
+					<br />
+					<a class="button" style="margin-right: 15px;margin-left: 5px;" onclick="update()">up-Finish</a>
+
+					<a class="button" onclick="preserve()">Preserve</a>
+
+				</div>
+				<div class="box-content-right">
+					<div style="height: 46px;background-color: #FF6600;margin-bottom: 4px;"></div>
+					<img src="../../../img/right.jpg" height="350px" width="264px" />
+					<div id="little">
+						<div class="little-text">Dedication to the heart</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="page-bottom">
+			<div class="logoContain">
+				<ul class="logo">
+					<li><img src="../../../img/hospital2.png" /></li>
+					<li><img src="../../../img/hospital3.png" /></li>
+				</ul>
+
+			</div>
+			<div class="protocol">
+				<h6>All start from the heart.</h6>
+				<h6>Interconnection Hospital System 1.0 author:pengfei.zhou</h6>
+				<h6> IHS&nbsp;遵循 <a href="http://scripts.sil.org/OFL">SIL OFL 1.1 协议</a>&middot;代码遵循 <a href="http://opensource.org/licenses/mit-license.html">MIT协议</a>&middot;文档遵循 <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0 协议</a></h6>
+				<h6><a href="https://github.com/FortAwesome/Font-Awesome">GitHub项目</a> </h6>
+
+			</div>
+
+			<div class="logoContain">
+				<ul class="logo">
+					<li><img src="../../../img/hospital4.png" /></li>
+					<li><img src="../../../img/hospital5.png" /></li>
+				</ul>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../js/jquery.confirm.js"></script>
+
+</html>

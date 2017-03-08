@@ -1,0 +1,41 @@
+.page-bottom {
+				width: 100%;
+				height: 200px;
+				background-color: black;
+				position: absolute;
+				top: 1000px
+			}
+.page-bottom a:link,
+.page-bottom a:visited {
+				color: rgba(255, 255, 255, .7);
+			}
+.logoContain {
+				width: 447px;
+				height: 200px;
+				float: left;
+			}
+.logo {
+				padding: 0px;
+			}
+			
+			.logo li {
+				float: left;
+			}
+			
+			.logo img {
+				width: 80px;
+				height: 80px;
+				margin-left: 100px;
+				margin-top: 55px;
+			}
+li {
+				list-style-type: none;
+			}
+h6 {
+				margin: 10px;
+				text-align: left;
+				color: #60606d;
+			}
+.protocol{
+	float: left;margin-top: 50px;margin-left: 20px;
+}
