@@ -11,6 +11,14 @@
 			$("#frame").attr("src",url)
 		}
 		
+		function GetQueryString(name) {
+		   var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)","i");
+		   var r = window.location.search.substr(1).match(reg);
+		   if (r!=null) return (r[2]); return null;
+		}
+		$(function(){
+			$("#user").append(GetQueryString("user"));
+		})
 	</script>
 </head>
 <body>
@@ -99,6 +107,9 @@
 									<a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Signed in as <span class="caret"></span></a>
 									<ul class="dropdown-menu">
 										<li>
+											<a id="user" href="#">Id:</a>
+										</li>
+										<li>
 											<a href="#">Change Password</a>
 										</li>
 										<li>
@@ -107,7 +118,7 @@
 									</ul>
 								</li>
 								<li class="">
-									<a href="#">Logout</a>
+									<a href="../../login&register/pages/login.html">Logout</a>
 								</li>
 							</ul>
 						</div>

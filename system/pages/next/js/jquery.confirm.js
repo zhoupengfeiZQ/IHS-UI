@@ -6,7 +6,7 @@
 		}
 		var buttonHTML = '';
 		$.each(params.buttons, function(name, obj) {
-			buttonHTML += '<a href="#" class="button ' + obj['class'] + '">' + name + '<span></span></a>';
+			buttonHTML += '<a href="#" class="box-button ' + obj['class'] + '">' + name + '<span></span></a>';
 
 			if(!obj.action) {
 				obj.action = function() {};
@@ -17,6 +17,7 @@
 			'<div id="confirmOverlay">',
 			'<div id="confirmBox">',
 			'<h1>', params.title, '</h1>',
+			'<hr/>',
 			'<p>', params.message, '</p>',
 			'<div id="confirmButtons">',
 			buttonHTML,
@@ -25,7 +26,7 @@
 
 		$(markup).hide().appendTo('body').fadeIn();
 
-		var buttons = $('#confirmBox .button'),
+		var buttons = $('#confirmBox .box-button'),
 			i = 0;
 
 		$.each(params.buttons, function(name, obj) {

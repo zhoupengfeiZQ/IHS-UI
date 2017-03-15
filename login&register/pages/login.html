@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html> 
+	
+    <head>
+        <meta charset="UTF-8" />
+        <title>Login </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <meta name="description" content="Login and Registration Form with HTML5 and CSS3" />
+        <meta name="keywords" content="html5, css3, form, switch, animation, :target, pseudo-class" />
+        <script type="text/javascript" src="../../js/angular-1.3.0.14/angular.js" ></script>
+        <script src="../../js/bootstrap-3.3.0/js/jquery-3.0.0.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="../css/demo.css" />
+        <link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/animate-custom.css" />
+		<script type="text/javascript">
+			$(function(){
+				$("#signinButton").click(function(){
+					$.ajax({
+						url: "http://localhost:9090/ihs/patients",
+						type: 'POST',
+						data: JSON.stringify({
+							'username': $('#username').val(),
+							'email': $('#email').val(),
+							'password': $('#password').val(),
+							'country': $('#country').val()
+						}),
+						contentType: "application/json; charset=utf-8",
+						dataType: "json",
+						success: function(data) {
+							if(data.result == true) {
+								alert('ok');
+								location.hash="#tologin";
+								
+							}
+						}
+					});			
+				});
+			})
+		</script>
+    </head>
+    <body ng-app="myApp">
+        <div class="container" ng-controller="loginCtr">
+            <header>
+                <h1 style="text-align: left;">Welcome<span> ihs System</span></h1>
+				<nav >
+					<span>Click <strong>"Join us"</strong> to see the hospital</span>
+					<a >world</a>
+				</nav>
+            </header>
+            <section>				
+                <div id="container_demo" >
+                   
+                    <a class="hiddenanchor" id="toregister"></a>
+                    <a class="hiddenanchor" id="tologin"></a>
+                    <div id="wrapper">
+                        <div id="login" class="animate form">
+                            <form  action="" > 
+                                <h1>Log in</h1> 
+                                <p> 
+                                    <label for="username" class="uname" data-icon="u" > Your email or id </label>
+                                    <input id="usernameLogin" name="username" required="required" type="text" ng-model="identity" placeholder="id or mymail@mail.com" AUTOCOMPLETE=OFF/>
+                                </p>
+                                <p> 
+                                    <label for="password" class="youpasswd" data-icon="p"> Your password </label>
+                                    <input id="passwordLogin" name="password" required="required" type="password" ng-model="password" placeholder="eg. X8df!90EO" AUTOCOMPLETE=OF/> 
+                                </p>
+                                <p class="keeplogin"> 
+									<input type="checkbox" name="loginkeeping" id="loginkeeping" value="loginkeeping" /> 
+									<label for="loginkeeping">Keep me logged in</label>
+								</p>
+                                <p class="login button">
+	                               <span ng-click="mylogin()">
+	                               	<input  value="Login"  style="text-align: center;" disabled="true"/>
+	                               </span>   
+								</p>
+                                <p class="change_link">
+									Not a member yet ?
+									<a href="#toregister" class="to_register">Join us</a>
+								</p>
+                            </form>
+                        </div>
+
+                        <div id="register" class="animate form">
+                            <form id="regForm" action="" autocomplete="on"> 
+                                <h1> Sign up </h1> 
+                                <p> 
+                                    <label for="usernamesignup" class="uname" data-icon="u">Your username</label>
+                                    <input id="username" name="username" required="required" type="text" placeholder="mysuperusername690" AUTOCOMPLETE=OFF/>
+                                </p>
+                                <p> 
+                                    <label for="emailsignup" class="youmail" data-icon="e" > Your email</label>
+                                    <input id="email" name="email" required="required" type="email" placeholder="mysupermail@mail.com" AUTOCOMPLETE=OFF/> 
+                                </p>
+                                <p> 
+                                    <label for="passwordsignup" class="youpasswd" data-icon="p">Your password </label>
+                                    <input id="password" name="password" required="required" type="password" placeholder="eg. X8df!90EO" AUTOCOMPLETE=OFF/>
+                                </p>
+                                <p> 
+                                    <label for="country" class="youpasswd" data-icon="p">Your Country</label>
+                                    <input id="country" name="country" required="required" type="text" placeholder="China" AUTOCOMPLETE=OFF/>
+                                </p>
+                                <p class="signin button"> 
+                                	<span id="signinButton">
+										<input style="text-align: center;"   value="Sign up" disabled="true"/> 
+									</span>
+                                </p>
+                                <p class="change_link">  
+									Already a member ?
+									<a id="go" href="#tologin" class="to_register"> Go and log in </a>
+								</p>
+                            </form>
+                        </div>
+						
+                    </div>
+                </div>  
+            </section>
+        </div>
+        <h1 style="left: 1025px;position: absolute;top: 585px;z-index: 1000;font-family:  'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;font-size: 35px;">We Never <span style="color: #7cbcd6;"> Say Die.</span></h1>
+        <script src="../js/loginCtr.js"></script>
+    </body>
+</html>

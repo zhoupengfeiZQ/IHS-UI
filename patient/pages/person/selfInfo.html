@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="../../../js/bootstrap-3.3.0/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../../../css/bottom.css" />
+		<script src="../../../js/bootstrap-3.3.0/js/jquery-3.0.0.min.js"></script>
+		<script src="../../../js/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				var object=window.parent.document.getElementById('user').textContent;
+				$.ajax({
+							url:"http://localhost:9090/ihs/patients/"+object+'/',
+							type:'GET',
+							contentType:"application/json; charset=utf-8",
+							dataType:"json",
+							success: function(data){
+								$('#account').val(data.result.account);
+								$('#username').val(data.result.username);	
+								$('#id_card').val(data.result.id_card);	
+								$('#country').val(data.result.country);	
+								$('#address').val(data.result.address);	
+								$('#age').val(data.result.age);	
+								$('#sex').val(data.result.sex);	
+								$('#email').val(data.result.email);	
+								$('#phone').val(data.result.phone);	
+								$('#maritalStatus').val(data.result.marital_status);	
+								$('#nation').val(data.result.nation);	
+								$('#history').val(data.result.history);	
+							}
+							
+					});
+			
+			})
+		</script>
+		<style>
+			hr{margin: 40px 0px;border-top: 1px solid #ddd;}
+		</style>
+		<title></title>
+	</head>
+
+	<body>
+		
+		<div class="container" style="position: absolute;top: 130px;left: 90px;">
+			<div class="page-header">
+				<h2>个人信息</h2>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+				     &nbsp;
+				</div>
+				<div class="panel-body" style="padding-top: 50px;">
+					<form class="form-horizontal" role="form">
+						<div class="form-group">
+							<label class="col-sm-1 control-label">Account</label>
+							<div class="col-lg-4">
+								<input type="text" class="form-control input-lg" id="account" name="account" />
+							</div>
+							<label class="col-lg-2 control-label">Username</label>
+							<div class="col-lg-4">
+								<input type="text" class="form-control input-lg" id="username"  name="username" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-1 control-label">Id-card</label>
+							<div class="col-lg-4">
+								<input type="text" class="form-control input-lg" id="id_card"  name="id_card" />
+							</div>
+							<label class="col-lg-2 control-label">Country</label>
+							<div class="col-lg-4">
+								<input type="text" class="form-control input-lg" id="country"  name="country" />
+							</div>
+						</div>
+						<div class="form-group">
+						   <label class="col-sm-1 control-label">Address</label>
+						   <div class="col-lg-10">
+						    <textarea class="form-control" rows="5" style="resize: none;" id="address"  name="address"></textarea>
+						   </div>
+						</div>
+						<hr />
+						<div class="form-group">
+							<label class="col-sm-1 control-label">Age</label>
+							<div class="col-lg-4">
+								<input type="text" class="form-control input-lg" id="age"  name="age" />
+							</div>
+							<label class="col-lg-2 control-label">Sex</label>
+							<div class="col-lg-4">
+								<input type="text" class="form-control input-lg" id="sex"  name="sex" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-1 control-label">E-mail</label>
+							<div class="col-lg-4">
+								<input type="text" class="form-control input-lg" id="email"  name="email" />
+							</div>
+							<label class="col-lg-2 control-label">Phone</label>
+							<div class="col-lg-4">
+								<input type="text" class="form-control input-lg" id="phone"  name="phone" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-1 control-label">Marital-status</label>
+							<div class="col-lg-4">
+								<input type="text" class="form-control input-lg" id="maritalStatus"  name="maritalStatus" />
+							</div>
+							<label class="col-lg-2 control-label">Nation</label>
+							<div class="col-lg-4">
+								<input type="text" class="form-control input-lg" id="nation"  name="nation" />
+							</div>
+						</div>
+						<hr />
+						<div class="form-group">
+						   <label class="col-sm-1 control-label">History</label>
+						   <div class="col-lg-10">
+						    <textarea class="form-control" rows="5" style="resize: none;" id="history"  name="history"></textarea>
+						   </div>
+						</div>
+
+						
+						
+					</form>
+				</div>
+			</div>
+		</div>
+		
+			<div class="page-bottom" style="top: 1140px;">
+				<div class="logoContain">
+					<ul class="logo">
+						<li><img src="../../../system/img/hospital2.png" /></li>
+						<li><img src="../../../system/img/hospital3.png" /></li>
+					</ul>
+	
+				</div>
+				<div class="protocol">
+					<h6>All start from the heart.</h6>
+					<h6>Interconnection Hospital System 1.0 author:pengfei.zhou</h6>
+					<h6> IHS&nbsp;遵循 <a href="http://scripts.sil.org/OFL">SIL OFL 1.1 协议</a>&middot;代码遵循 <a href="http://opensource.org/licenses/mit-license.html">MIT协议</a>&middot;文档遵循 <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0 协议</a></h6>
+					<h6><a href="https://github.com/FortAwesome/Font-Awesome">GitHub项目</a> </h6>
+	
+				</div>
+	
+				<div class="logoContain">
+					<ul class="logo">
+						<li><img src="../../../system/img/hospital4.png" /></li>
+						<li><img src="../../../system/img/hospital5.png" /></li>
+					</ul>
+				</div>
+			</div>
+	</body>
+
+</html>
