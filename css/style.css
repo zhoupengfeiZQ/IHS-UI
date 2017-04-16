@@ -1,0 +1,237 @@
+
+body {			margin: 0px 8px 0px 8px;
+                font-family: Arial, Helvetica, sans-serif;
+                color: #555;
+                background:url('../img/bg-body.gif') top left repeat-y;
+              
+        }
+
+.inner{
+	margin: 0px 30px 0px 40px;
+	padding-top: 1px;
+}
+h1{
+                font-family: Helvetica, Arial, sans-serif;
+                font-weight: bold;
+                font-size: 28px;
+                margin: 40px 0 40px 0;
+                }
+
+
+
+a           { color: #57a000; text-decoration: none; }
+a:hover     { color: #000; }
+a:active    { color: #777; }
+
+
+small   		{ font-size: 0.85em; }
+
+pre           { font-family: monospace; }
+
+p {
+                padding: 5px 0 10px 0;
+                line-height: 1.6em;
+                }
+               }
+				
+.align-left {
+                float: left;
+                }
+				
+.align-right {
+                float: right;
+                }
+
+/************ Button ************/
+.button {
+				font-family: Verdana, Arial, sans-serif;
+                display: inline-block;
+                background: #459300 url('../img/bg-button-green.gif') top left repeat-x !important;
+                border: 1px solid #459300 !important;
+                padding: 4px 7px 4px 7px !important;
+                color: #fff !important;
+                font-size: 11px !important;
+                cursor: pointer;
+                }
+                
+
+a.remove-link {
+				color: #bb0000;
+				}
+
+a.remove-link:hover {
+				color: #000;
+				}
+
+/********************************      Sidebar      ********************************/
+
+#sidebar {
+                background: url('../img/bg-sidebar.gif') top left no-repeat;
+                width: 230px;
+                height: 100%;
+                position: absolute;
+                left: 0;
+                top: 0;
+                color: #888;
+                font-size: 11px;
+                position: fixed;
+                }
+
+#sidebar #sidebar-wrapper {
+                margin: 30px 0 0 9px;
+                }
+
+#sidebar a,
+#sidebar a:active {
+                color:#ccc;
+                }
+
+#sidebar a:hover {
+                color:#fff;
+                }
+
+
+
+
+#sidebar #profile-links {
+                padding: 0 15px 20px 15px;
+                text-align: right;
+                line-height: 1.5em;
+                }
+
+/************ Sidebar Accordion Menu ************/
+
+#sidebar #main-nav {
+                width: 206px;
+                padding: 0;
+                margin: 20px 0 0 15px;
+                font-family: Helvetica, Arial, sans-serif;
+                }
+
+#sidebar #main-nav li {
+                list-style: none;
+                padding-bottom: 10px;
+                text-align: right;
+                }
+
+#sidebar #main-nav li a.nav-top-item {
+                background: transparent url('../img/bg-menu-item-green.gif') right center no-repeat; /* Background image for default color scheme - green */
+                padding: 10px 15px;
+                color: #fff;
+                font-size: 14px;
+                cursor: pointer;
+                display: block;
+                text-decoration: none;
+                }
+
+#sidebar #main-nav li a.current {
+                background-image: url('../img/bg-menu-item-current.gif') !important;
+                color: #333;
+                font-weight: bold;
+                }
+                
+#sidebar #main-nav li a.current:hover {
+                color: #333;
+                }
+
+#sidebar #main-nav ul {
+                padding: 0;
+                font-size: 12px;
+                margin: 0;
+                }
+
+#sidebar #main-nav ul li {
+                list-style: none;
+                margin: 0;
+                text-align: right;
+				padding: 0;
+                }
+
+#sidebar #main-nav ul li a {
+                padding: 8px 15px;
+                display: block;
+                color: #aaa;
+                font-size: 13px;
+                line-height: 1.2em;
+                }
+
+#sidebar #main-nav ul li a:hover,
+#sidebar #main-nav ul li a.current,
+#sidebar #main-nav ul li a.current:hover {
+                color: #fff;
+                }
+
+
+
+/************ Layout ************/
+
+#main-content {
+				background: #333 url(../img/bg.jpg) repeat top left;
+				
+                margin: 0px 0px 0px 224px;
+              
+                }
+
+#page-intro {
+                font-size: 17px;
+                padding: 0 0 20px 0;
+                }
+
+				
+#footer {
+				border-top: 1px solid #ccc;
+				margin: 40px 0 0 0;
+				padding: 20px 0;
+				font-size: 12px;
+                }
+/************ Lists ************/
+
+#main-content ul,
+#main-content ol {
+                padding: 10px 0;
+                }
+
+
+
+
+/************ Shortcut Buttons ************/
+
+.shortcut-button {
+				border-radius:6px;
+                border: 1px solid #ccc;
+                background: #f7f7f7 url('../img/shortcut-button-bg.gif') top left no-repeat;
+                display: block;
+                width: 120px;
+                margin: 0 0 20px 0;
+                }
+
+.shortcut-button span {
+				border-radius:6px;
+                border: 1px solid #fff;
+                display:block;
+                padding: 15px 10px 15px 10px;
+                text-align: center;
+                color: #555;
+                font-size: 13px;
+                line-height: 1.3em;
+                }
+
+.shortcut-button span img {
+                margin-bottom: 10px;
+                }
+
+.shortcut-button:hover {
+                background: #fff;
+				
+                }
+				
+.shortcut-button span:hover {
+				color: #57a000; 
+                }
+
+ul.shortcut-buttons-set li {
+                float: left;
+                margin: 0 15px 0 0;
+				padding: 0 !important;
+				background: 0;
+                }

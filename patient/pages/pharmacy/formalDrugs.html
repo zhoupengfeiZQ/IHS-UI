@@ -1,0 +1,211 @@
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title> hospital</title>
+		<link rel="stylesheet" href="../../../js/bootstrap-3.3.0/css/bootstrap.css" />
+		<script type="text/javascript" src="../../../js/bootstrap-3.3.0/js/jquery-3.0.0.min.js"></script>
+		<script type="text/javascript" src="../../../js/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="../../../css/style.css" type="text/css" media="screen" />
+		<script type="text/javascript" src="../../../js/leftnav.js"></script>
+		<script>
+			$(function(){
+				$("#main-nav li ul").hide(); // Hide all sub menus
+				$("#main-nav li a.current").parent().find("ul").slideToggle("slow"); // Slide down the current menu item's sub menu
+				
+				$("#main-nav li a.nav-top-item").click( // When a top menu item is clicked...
+					function () {
+						$(this).parent().siblings().find("ul").slideUp("normal"); // Slide up all sub menus except the one clicked
+						$(this).next().slideToggle("normal"); // Slide down the clicked sub menu
+						return false;
+					}
+		);
+		
+			})
+		</script>
+		<style>
+		h4{font-weight: bold;font-style: italic;}
+			li {
+				list-style: none;
+				color: #57a000;
+			}
+			
+			a:hover {
+				text-decoration: none;
+			}
+			
+			.tab-pane {
+				height: 200px;
+			}
+			
+			label {
+				color: #555;
+				font-weight: normal;
+			}
+			
+			.modal-open {
+				overflow: auto;
+			}
+			
+			.modal-dialog {
+				margin: 160px auto;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<div id="body-wrapper">
+			<div id="sidebar" style="position: fixed;top: 82px;">
+				<div id="sidebar-wrapper">
+					<div id="profile-links">
+						<br />
+						<a href="#" title="View the Site">address</a> |
+						<a href="#" title="Sign Out">phone:476555</a>
+					</div>
+
+					<ul id="main-nav">
+						<li>
+							<a href="#" class="nav-top-item ">感冒药 </a>
+							 <ul>
+
+					            <li><a href="#999">三九感冒灵</a></li>
+					
+					            <li><a href="#whiteBlack">白加黑</a></li>
+					
+					          </ul>
+						</li>
+
+						<li>
+							<a href="#" class="nav-top-item ">退烧药 </a>
+							<ul>
+
+					            <li><a href="#ml">美林</a></li>
+					
+					            <li><a href="#fbd">芬必得</a></li>
+					
+					          </ul>
+						</li>
+
+						<li>
+							<a href="#" class="nav-top-item no-submenu">胃肠道药 </a>
+							<ul>
+
+					            <li><a href="#sds">斯达舒</a></li>
+					          </ul>
+						</li>
+
+						<li>
+							<a href="#facilities" class="nav-top-item ">抗生素</a>
+							<ul>
+
+					            <li><a href="#amxl">阿莫西林</a></li>
+					
+					          </ul>
+						</li>
+
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div id="main-content">
+
+				<div class="inner">
+
+					<div class="panel panel-default" style="margin-top: 150px;">
+						<div class="panel-body">
+							<div class="page-header">
+								<h1>感冒药
+							 <small></small>
+							 </h1>
+							</div>
+							<p>
+								<div id="999" style="position: absolute;top: 100px;"></div>
+								<h4 >三九感冒灵：</h4>
+								<br />
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为浅棕色至深棕色颗粒，主要用于治疗感冒引起的头痛，发热，鼻塞，流涕，咽痛。
+								单纯的西药重在缓解症状，容易导致昏昏沉沉、乏力、肠胃不适等副作用；
+								单纯的抗感冒中药重在治本，症状消失缓慢，使患者受感冒症状困扰时间长，为生活、工作、学习带来诸多不便。999感冒灵是中西药复方制剂，其中具备西药迅速缓解症状的功效，中药可以抗病毒增强机体免疫力。
+								<br />
+								<br />
+								<div id="whiteBlack" style="position: absolute;top: 200px;"></div>
+								<h4>白加黑：</h4>
+								<br />
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;白加黑(氨酚伪麻美芬片Ⅱ氨麻苯美片)，本品适用于治疗和减轻感冒引起的发热、头痛、周身四肢酸痛、喷嚏、流涕、鼻塞、咳嗽等症状。 白加黑日片具有可靠的解热、镇痛、镇咳和收缩毛细血管作用；白加黑夜片除上述作用外，还具有抗过敏、镇静、催眠作用，用于感冒。 
+								<br/>用量用法   口服：白日服用白色片，每次1～2片，每日2次；晚上（睡前）服用黑色片，每次1～2片，每日1次。 
+								<br/>注意事项   偶有轻度乏力、恶心、上腹不适、食欲不振、口干等。 
+							</p>
+
+							
+							<div class="page-header">
+								<h1>退烧药
+							 <small></small>
+							 </h1>
+							</div>
+							<p>
+								<div id="ml" style="position: absolute;top: 490px;"></div>
+								<h4 >美林：</h4>
+								<br />
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;美林由上海强生制药有限公司生产，主要产品有布洛芬混悬液和布洛芬混悬滴剂。布洛芬混悬液适用于1-12岁儿童，用于儿童普通感冒或流行感冒引起的发热。也用于缓解儿童轻至中度疼痛，如头痛、关节痛、偏头痛、牙痛、肌肉痛、神经痛。布洛芬混悬滴剂专为婴幼儿设计，用于婴幼儿的退热，缓解由于感冒、流感等引起的轻度头痛、咽痛及牙痛等。
+								布洛芬混悬液的用法用量与布洛芬混悬滴剂的用法用量是有区别的。
+
+								布洛芬混悬液的用法用量：1-3儿童，一次用量为4毫升；4-6儿童，一次用量为5毫升；7-9儿童，一次用量为8毫升；10-12儿童，一次用量为10毫升。若持续疼痛或发热，可间隔4～6小时重复用药1次，24小时不超过4次。
+								
+								布洛芬混悬滴剂的用法用量：需要时每6～8小时可重复使用，每24小时不超过4次，或参照年龄、体重剂量表，用滴管量取。
+								<br />
+								<br />
+								<div id="fbd" style="position: absolute;top: 640px;"></div>
+								<h4>芬必得：</h4>
+								<br />
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;芬必得布洛芬缓释胶囊是芬必得止痛系列产品之一，用于缓解轻至中度疼痛如关节痛、肌肉痛、神经痛、头痛、偏头痛、牙痛、痛经，也用于普通感冒或流行性感冒引起的发热。
+								口服，成人一次1粒，一日2次（早晚各一次）。
+							</p>
+							
+						
+							<div class="page-header">
+								<h1>胃肠道药
+							 <small></small>
+							 </h1>
+							</div>
+							<p>
+								<div id="sds" style="position: absolute;top: 900px;"></div>
+								<h4>斯达舒：</h4>
+								<br />
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用于胃溃疡、十二指肠溃疡、各类慢性胃炎（浅表、萎缩性、糜烂性等）、胃酸过多、胃痉挛等。 
+								本品连续使用不得超过7天，症状未缓解，请咨询医师或药师。妊娠头3个月慎用。肾功能不全者慎用。胃肠道阻塞性疾患、甲状腺机能亢进，溃疡性结肠炎、反流性食管炎患者慎用。因本品能妨碍磷的吸收，故不宜长期大量使用。当药品性状发生改变时禁用。儿童用量请咨询医师或药师。儿童必须在成人的监护下使用。请将本品放在儿童接触不到的地方。
+							</p>
+							
+							
+							<div class="page-header">
+								<h1>抗生素
+							 <small></small>
+							 </h1>
+							</div>
+							<p>
+								<div id="amxl" style="position: absolute;top: 1130px;"></div>
+								<h4 >阿莫西林：</h4>
+								<br />
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;阿莫西林，又名安莫西林或安默西林，是一种最常用的半合成青霉素类广谱β-内酰胺类抗生素，为一种白色粉末，半衰期约为61.3分钟。在酸性条件下稳定，胃肠道吸收率达90%。阿莫西林杀菌作用强，穿透细胞膜的能力也强。是目前应用较为广泛的口服半合成青霉素之一，其制剂有胶囊、片剂、颗粒剂、分散片等等，现在常与克拉维酸合用制成分散片。
+							适应症为阿莫西林适用于敏感菌(不产β内酰胺酶菌株)所致的下列感染：1.溶血链球菌、肺炎链球菌、葡萄球菌或流感嗜血杆菌所致中耳炎、鼻窦炎、咽炎、扁桃体炎等上呼吸道感染。2.大肠埃希菌、奇异变形杆菌或粪肠球菌所致的泌尿生殖道感染。3.溶血链球菌、葡萄球菌或大肠埃希菌所致的皮肤软组织感染。4.溶血链球菌、肺炎链球菌、葡萄球菌或流感嗜血杆菌所致急性支气管炎、肺炎等下呼吸道感染。5.急性单纯性淋病。6.本品尚可用于治疗伤寒、伤寒带菌者及钩端螺旋体病；阿莫西林亦可与克拉霉素、兰索拉唑三联用药根除胃、十二指肠幽门螺杆菌，降低消化道溃疡复发率。
+							</p>
+									<br />
+									<br />
+									<br />
+						</div>
+
+					</div>
+
+					<div id="footer"> <small>
+
+      &#169; Copyright 2010 Your Company | Powered by <a href="#">admin templates</a> | <a href="#">Top</a> </small> </div>
+
+				</div>
+			</div>
+
+		</div>
+
+	</body>
+
+</html>

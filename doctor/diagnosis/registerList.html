@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" href="../../js/easyui/themes/default/easyui.css"></link>
+        <link rel="stylesheet" href="../../js/easyui/themes/icon.css"></link>
+        <link rel="stylesheet" href="../../js/easyui/demo/demo.css"/>
+        <link rel="stylesheet" href="../../css/bottom.css"/>
+        <script src="../../js/easyui/jquery.js"></script>
+        <script src="../../js/easyui/jquery.easyui.min.js"></script>
+       <style>
+			.box-wrapper {
+				width: 97%;
+				height: 800px;
+				position: absolute;
+				top: 155px;
+				margin-left: 20px;
+				background-color: white;
+				border: 2px solid #ccc;
+				border-radius: 6px
+			}
+			
+			.box-header {
+				margin-top: 1px;
+				height: 50px;
+				border-bottom: 1px solid #ccc;
+			}
+			
+			.box-content {
+				padding: 40px 0px 20px 20px;
+			}
+			
+			.box-content-left {
+				width: 75%;
+				height: 578px;
+				border: 1px solid #ccc;
+				float: left;
+				border-radius: 6px;
+				padding-top: 20px;
+			}
+			
+			.box-content-right {
+				width: 20%;
+				height: 598px;
+				border: 1px solid #ccc;
+				float: left;
+				margin-left: 30px;
+			}
+			
+			.button {
+				border-radius: 4px;
+				font-family: Verdana, Arial, sans-serif;
+				display: inline-block;
+				background: #459300 !important;
+				border: 1px solid #459300 !important;
+				padding: 4px 7px 4px 7px !important;
+				color: #fff !important;
+				font-size: 15px !important;
+				cursor: pointer;
+			}
+			
+			a {
+				text-decoration: none;
+			}
+			
+			.button:hover {
+				text-decoration: underline;
+			}
+			
+			.panel-body {
+				border-color: #ccc;
+				border-left: 0;
+				border-right: 0;
+			}
+			
+			li {
+				list-style-type: none;
+			}
+			
+			.datagrid-row-selected {
+				background-color: #e0ecff;
+			}
+			
+			
+			
+			body {
+				margin: 0px;
+				padding: 0px;
+				background: #333 url(../../img/bg.jpg) repeat top left;
+			}
+			
+						
+			#little {
+				height: 195px;
+				background-color: black;
+				position: absolute;
+				width: 264px;
+			}
+			
+			#little:hover {
+				background-color: #419641;
+			}
+			
+			.little-text {
+				color: white;
+				font-size: 22px;
+				margin: 20px;
+				position: absolute;
+				top: 48px;
+			}
+			
+			.datagrid-view2 {
+				height: 360px;
+			}
+		</style>
+		<script type="text/javascript">
+			function returnHome() {
+				$("#home").click();
+			};
+
+			$(function() {
+				/* 	数据列表分页 */
+				var object=window.parent.document.getElementById('user').textContent;
+				
+				$('#depart_list').datagrid({
+					method: 'get',
+					singleSelect: true,
+					fitColumns: true,
+					scrollbarSize: 0,
+					pageSize: 10,
+					pageList: [3, 5, 10, 15],
+					url: "http://localhost:9090/ihs/registrations/"+object+'/',
+					columns: [
+						[{
+							field: '选择',
+							checkbox: true
+						}, {
+							field: 'registration_id',
+							title: '挂号单号',
+							width: 100
+						}, {
+							field: 'depart',
+							title: '科室',
+							width: 80,
+							editor: 'text'
+						}, {
+							field: 'doctor_id',
+							title: '医生编号',
+							width: 100,
+							editor: 'text'
+						}, {
+							field: 'doctor',
+							title: '医生',
+							width: 80,
+							editor: 'text'
+						}, {
+							field: 'patient_name',
+							title: '患者姓名',
+							width: 80,
+							editor: 'text'
+						}, {
+							field: 'patient_account',
+							title: '患者账号',
+							width: 100,
+							editor: 'text'
+						}, {
+							field: 'time',
+							title: '预约时间',
+							width: 80,
+							align: 'left',
+							editor: 'text'
+						}, {
+							field: 'registration_index',
+							title: '序号',
+							width: 80,
+							align: 'left',
+							editor: 'text'
+						}, {
+							field: 'status',
+							title: '状态',
+							width: 50,
+							align: 'left',
+							editor: 'text'
+						}, ]
+					],
+					pagination: true,
+					loadMsg: '数据装载中......',
+					toolbar: '#depart_tb',
+				});
+
+				$('#depart_list').datagrid('getPager').pagination({
+					beforePageText: '第',
+					afterPageText: '页    共 {pages} 页',
+					displayMsg: '当前显示 {from} - {to} 条记录   共 {total} 条记录'
+				});
+
+				$("#searchBtn").click(function() {
+
+					$("#depart_list").datagrid("load", {
+						"patient_name": $("#patientName").val(),
+						"time": $("#time").val()
+					});
+
+				});
+
+				$('#diagnosisBtn').click(function(){
+					var row = $('#depart_list').datagrid('getSelected');
+					if(row) {
+							window.location.href='medical_record.html?registration_id='+row.registration_id;
+					}
+				})
+			});
+			
+			</script>
+	</head>
+
+	<body style="background-color: #f0f0f0;">
+		<!--end导航条end-->
+
+		<div class="box-wrapper">
+			<div class="box-header">
+
+			</div>
+			<div class="box-content">
+				<div class="box-content-left">
+					<form action="#" id="searchForm" style="margin-bottom: 20px;">
+						<fieldset style="border: 0;">
+							<!--<legend>查询条件</legend>-->
+
+							<table border="0" cellpadding="5" cellspacing="0">
+								<tr>
+
+									<td>患者姓名:</td>
+									<td>
+										<input type="text" id="patientName" name="patientName" data-options="required:true" style="width:150px;" />
+									</td>
+									<td>预约时间:</td>
+									<td>
+										<input type="text" id="time" name="time" data-options="required:true" style="width:150px;" />
+									</td>
+									<td>
+										<a class="button" id="searchBtn">Search</a>
+									</td>
+								</tr>
+							</table>
+						</fieldset>
+					</form>
+
+					<table id="depart_list"></table>
+					<!-- 工具栏 -->
+					<div id="depart_tb">
+						<a class="easyui-linkbutton" id="tb_edit" data-options="iconCls:'icon-edit',plain:true" style="float:left;" onclick="beforeUpdate()" title="编辑"></a>
+						
+					</div>
+
+					<br />
+					<hr />
+					<br />
+					<a class="button" id="diagnosisBtn"  style="margin-right: 15px;margin-left: 5px;">diagnosis</a>
+
+					
+
+				</div>
+				<div class="box-content-right">
+					<div style="height: 46px;background-color: #FF6600;margin-bottom: 4px;"></div>
+					<img src="../../system/img/right.jpg" height="350px" width="264px" />
+					<div id="little">
+						<div class="little-text">Dedication to the heart</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="page-bottom">
+			<div class="logoContain">
+				<ul class="logo">
+					<li><img src="../../system/img/hospital2.png" /></li>
+					<li><img src="../../system/img/hospital3.png" /></li>
+				</ul>
+
+			</div>
+			<div class="protocol">
+				<h6>All start from the heart.</h6>
+				<h6>Interconnection Hospital System 1.0 author:pengfei.zhou</h6>
+				<h6> IHS&nbsp;遵循 <a href="http://scripts.sil.org/OFL">SIL OFL 1.1 协议</a>&middot;代码遵循 <a href="http://opensource.org/licenses/mit-license.html">MIT协议</a>&middot;文档遵循 <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0 协议</a></h6>
+				<h6><a href="https://github.com/zhoupengfeiZQ/IHS-UI.git">GitHub项目</a> </h6>
+
+			</div>
+
+			<div class="logoContain">
+				<ul class="logo">
+					<li><img src="../../system/img/hospital4.png" /></li>
+					<li><img src="../../system/img/hospital5.png" /></li>
+				</ul>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../system/pages/next/js/jquery.confirm.js"></script>
+
+</html>

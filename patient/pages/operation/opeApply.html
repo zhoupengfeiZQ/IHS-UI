@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="../../../js/bootstrap-3.3.0/css/bootstrap.css" />
+		<link rel="stylesheet" href="../../../css/bottom.css" />
+		<script src="../../../js/bootstrap-3.3.0/js/jquery-3.0.0.min.js"></script>
+		<script src="../../../js/bootstrap-3.3.0/js/bootstrap.js"></script>
+		<style>
+			body {
+				background: #333 url(../../../img/bg.jpg) repeat top left;
+			}
+			
+			.modal-open {
+				overflow: auto;
+			}
+			
+			.modal-dialog {
+				width: 900px;
+			}
+			
+			.box-wrapper {
+				width: 97%;
+				height: 1000px;
+				position: absolute;
+				top: 155px;
+				margin-left: 20px;
+				background-color: white;
+				border: 1px solid #ccc;
+				border-radius: 6px
+			}
+			
+			a {
+				text-decoration: none;
+			}
+			
+			li {
+				list-style-type: none;
+			}
+			
+			.page-bottom {
+				top: 1200px;
+			}
+		</style>
+		<script type="text/javascript">
+			function returnHome() {
+				$("#home").click();
+			};
+			$(function(){
+				var object=window.parent.document.getElementById('userId').textContent;
+				$.ajax({
+							url:"http://localhost:9090/ihs/operations?account="+object,
+							type:'GET',
+							contentType:"application/json; charset=utf-8",
+							dataType:"json",
+							success: function(data){
+								if(data.rows.length>0){
+								$('#operation_id').val((data.rows)[0].operation_id);
+								$('#patient').val((data.rows)[0].patient);
+								$('#doctor').val((data.rows)[0].doctor);
+								$('#record_id').val((data.rows)[0].record_id);
+								$('#account').val((data.rows)[0].account);
+								$('#doctor_view').val((data.rows)[0].doctor_view);
+								$('#patient_view').val((data.rows)[0].patient_view);
+								$('#family_view').val((data.rows)[0].family_view);
+								}
+								
+							}
+							
+					});
+					
+				 $('#submitBtn').click(function(){
+				 	var operation_id=$('#operation_id').val();
+				 	$.ajax({
+								url:"http://localhost:9090/ihs/operations/"+operation_id+'/',
+								type:'PUT',
+								data:JSON.stringify({'patient_view':$('#patient_view').val(),'family_view':$('#family_view').val()
+										
+								}),
+								contentType:"application/json; charset=utf-8",
+								dataType:"json",
+								success: function(data){
+									location.reload();
+								}
+								
+						});
+				 });
+			
+			})
+	
+		</script>
+	</head>
+
+	<body>
+
+		<div class="box-wrapper">
+			<div class="panel panel-default" style="margin: 40px 25px 0px 25px;">
+				<div class="panel-heading" style="background-color: white;">
+					<h3>Operation Application </h3>
+				</div>
+				<div class="panel-body">
+					<form class="bs-example bs-example-form" role="form">
+						<div class="row">
+							<div class="form-group">
+								<div class="col-lg-12" style="margin-top: 20px;margin-bottom: 20px;">
+									<div class="input-group">
+										<span class="input-group-btn">
+												<button class="btn btn-default" type="button">
+													operation_id
+												</button>
+										</span>
+										<input id="operation_id" type="text" class="form-control">
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-lg-4">
+								<div class="input-group">
+									<span class="input-group-btn">
+									<button class="btn btn-default" type="button">
+										 patient
+									</button>
+							</span>
+									<input id="patient" type="text" class="form-control">
+								</div>
+
+							</div>
+							<div class="col-lg-4">
+								<div class="input-group">
+								<span class="input-group-btn">
+								  <button class="btn btn-default" type="button">
+										doctor
+								  </button>
+								</span>
+									<input id="doctor" type="text" class="form-control">
+								</div>
+							</div>
+							<div class="col-lg-4">
+								<div class="input-group">
+									<span class="input-group-btn">
+											<button class="btn btn-default" type="button">
+													                  record_id
+											</button>
+									</span>
+									<input id="record_id" type="text" class="form-control">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="col-lg-12" style="margin-top: 20px;">
+									<div class="input-group">
+										<span class="input-group-btn">
+												<button class="btn btn-default" type="button">
+													patient_account
+												</button>
+										</span>
+										<input id="account" type="text" class="form-control">
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="col-lg-12" style="margin-top: 30px;">
+									<textarea id="doctor_view" class="form-control" rows="5" style="resize: none;" id="address" name="address" placeholder="doctor please give application reason..."></textarea>
+								</div>
+							</div>
+
+						</div>
+
+						<div class="row" style="margin-top: 30px;">
+							<div class="col-lg-12">
+							
+										<button class="btn btn-info btn-block" type="button">
+											 patient_view
+										 </button>
+							
+							</div>
+							
+							<div class="form-group">
+								<div class="col-lg-12" style="margin-top: 30px;">
+									<textarea id="patient_view" class="form-control" rows="5" style="resize: none;" id="address" name="address" placeholder="patient_view..."></textarea>
+								</div>
+							</div>
+							
+							
+						</div>
+						
+						<div class="row" style="margin-top: 30px;">
+							<div class="col-lg-12">
+								
+										<button class="btn btn-info btn-block">
+											 family_view
+										 </button>
+									
+							</div>
+							
+							<div class="form-group">
+								<div class="col-lg-12" style="margin-top: 30px;">
+									<textarea id="family_view" class="form-control" rows="5" style="resize: none;" id="address" name="address" placeholder="family_view..."></textarea>
+								</div>
+							</div>
+							
+							
+						</div>
+						
+					</form>
+				</div>
+				<div class="panel-footer" style="background-color: white;">
+					<button id="submitBtn" type="button" class="btn btn-success  btn-block">
+	    				submit
+	  				</button>
+					
+				</div>
+			</div>
+		</div>
+
+		<div class="page-bottom">
+			<div class="logoContain">
+				<ul class="logo">
+					<li><img src="../../../system/img/hospital2.png" /></li>
+					<li><img src="../../../system/img/hospital3.png" /></li>
+				</ul>
+
+			</div>
+			<div class="protocol">
+				<h6>All start from the heart.</h6>
+				<h6>Interconnection Hospital System 1.0 author:pengfei.zhou</h6>
+				<h6> IHS&nbsp;遵循 <a href="http://scripts.sil.org/OFL">SIL OFL 1.1 协议</a>&middot;代码遵循 <a href="http://opensource.org/licenses/mit-license.html">MIT协议</a>&middot;文档遵循 <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0 协议</a></h6>
+				<h6><a href="https://github.com/FortAwesome/Font-Awesome">GitHub项目</a> </h6>
+
+			</div>
+
+			<div class="logoContain">
+				<ul class="logo">
+					<li><img src="../../../system/img/hospital4.png" /></li>
+					<li><img src="../../../system/img/hospital5.png" /></li>
+				</ul>
+			</div>
+		</div>
+	</body>
+
+</html>

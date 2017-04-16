@@ -1,0 +1,253 @@
+
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Simpla Admin</title>
+		<link rel="stylesheet" href="../../js/bootstrap-3.3.0/css/bootstrap.css"/>
+		<script type="text/javascript" src="../../js/bootstrap-3.3.0/js/jquery-3.0.0.min.js"></script>
+		<script type="text/javascript" src="../../js/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="../../css/style.css" type="text/css" media="screen" />
+		<script type="text/javascript" src="../../js/leftnav.js"></script>
+		<style>
+			li{list-style: none;color: #57a000;}
+			a:hover{text-decoration:none;}
+			.tab-pane{height: 200px;}
+			label{color: #555;font-weight: normal;}
+			.modal-open {
+		    overflow: auto;
+		}
+		.modal-dialog {
+			    margin: 160px auto;
+			}
+		</style>
+		<script type="text/javascript">
+			function GetQueryString(name) {
+			   var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)","i");
+			   var r = window.location.search.substr(1).match(reg);
+			   if (r!=null) return (r[2]); return null;
+			}
+			$(function(){
+				var object=GetQueryString("registration_id");
+				//
+					$.ajax({
+							url:"http://localhost:9090/ihs/records/"+object+'/',
+							type:'GET',
+							contentType:"application/json; charset=utf-8",
+							dataType:"json",
+							success: function(data){
+								$('#name').append(data.result.name);
+								$('#account').append(data.result.account);
+								$('#age').append(data.result.age);
+								$('#registration_id').append(data.result.registration_id);
+								$('#depart').append(data.result.depart);
+								$('#history').append(data.result.history);
+								$('#doctor_id').append(data.result.doctor_id);
+								$('#doctor').append(data.result.doctor);
+							}
+							
+					});
+				//
+				$('#submitBtn').click(function(){
+					$.ajax({
+								url:"http://localhost:9090/ihs/records",
+								type:'POST',
+								data:JSON.stringify({
+									'registration_id':$('#registration_id').html(),
+									'name':$('#name').html(),
+									'account':$('#account').html(),
+									'age':$('#age').html(),
+									'depart':$('#depart').html(),
+									'history':$('#history').html(),
+									'complain':$('#complain').val(),
+									'result':$('#result1').val(),
+									'suggestion':$('#suggestion1').val(),
+									'prescription':$('#prescription1').val(),
+									'doctor_id':$('#doctor_id').html(),
+									'doctor':$('#doctor').html()
+								}),
+								contentType:"application/json; charset=utf-8",
+								dataType:"json",
+								success: function(data){
+									$('#myModal').modal();
+								}
+								
+						});
+				});
+			})
+			
+		</script>
+	</head>
+
+	<body>
+		<div id="body-wrapper">
+			<div id="sidebar" style="position: fixed;top: 82px;">
+				<div id="sidebar-wrapper">
+					<div id="profile-links"> 
+						<br />
+						<a href="#" title="View the Site">View the Site</a> |
+						<a href="#" title="Sign Out">Sign Out</a>
+					</div>
+
+					<ul id="main-nav">
+						<li>
+							<a href="#" class="nav-top-item no-submenu">welcome </a>
+						</li>
+
+						<li>
+							<a href="#" class="nav-top-item current">Articles </a>
+						</li>
+						
+						<li>
+							<a href="#/" class="nav-top-item no-submenu">Dashboard </a>
+						</li>
+
+						<li>
+							<a href="registerList.html" class="nav-top-item current">return </a>
+						</li>
+
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div id="main-content">
+				  
+				  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                    	
+                                        <div class="modal-body">
+                                        	 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h3 style="text-align: center;margin: 55px;">success</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+            
+				<div class="inner">
+					<h1 id="welcome" style="font-size: 45px;font-weight: normal;margin-top: 140px;">Welcome</h1>
+
+				<br />
+
+				<ul class="shortcut-buttons-set">
+
+					<li>
+						<a class="shortcut-button" href="#"><span> <img src="../../img/icons/pencil_48.png" alt="icon" /><br />Write an Article </span></a>
+					</li>
+
+					<li>
+						<a class="shortcut-button" href="#"><span> <img src="../../img/icons/paper_content_pencil_48.png" alt="icon" /><br />Create New </span></a>
+					</li>
+
+					<li>
+						<a class="shortcut-button" href="#"><span> <img src="../../img/icons/image_add_48.png" alt="icon" /><br />Upload Image </span></a>
+					</li>
+
+					<li>
+						<a class="shortcut-button" href="#"><span> <img src="../../img/icons/clock_48.png" alt="icon" /><br />Add an Event </span></a>
+					</li>
+
+					<li>
+						<a class="shortcut-button" href="#messages" rel="modal"><span> <img src="../../img/icons/comment_48.png" alt="icon" /><br />New operation </span></a>
+					</li>
+
+				</ul>
+				
+				<h1></h1>
+				<div class="panel panel-default" style="margin-top: 150px;">
+					<div class="panel-body">
+						<div class="jumbotron" style="padding: 0px;background-color: white;">
+	                        <h2>Medical prescription</h2>
+	                        <hr />
+	                        <p style="margin-left: 20px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+	                    </div>
+	                    
+	                    <ul class="list-group col-lg-8" style="margin-top: 15px;">
+					      <li class="list-group-item">Name：<label style="margin-left: 20px;" id="name"></label></li>
+					      <li class="list-group-item">Account：<label style="margin-left: 20px;" id="account"></label></li>
+					       <li class="list-group-item">Age：<label style="margin-left: 20px;"id="age"></label></li>
+					        <li class="list-group-item">Registration_id：<label style="margin-left: 20px;" id="registration_id"></label></li>
+					         <li class="list-group-item">Depart：<label style="margin-left: 20px;" id="depart"></label></li>
+					          <li class="list-group-item">History：<label style="margin-left: 20px;" id="history"></label></li>
+					    </ul>
+					    
+					    <div class="col-lg-4" style="margin-top: 25px;">
+		                    <div class="well "style="background-color: white;height: 251px;">
+		                    	<button type="button" class="btn btn-default btn-lg btn-block" style="color: #57a000;" >
+								  Complain
+								</button>
+		                       
+		                        <hr/>
+		                         <textarea class="col-lg-12" rows="5" style="resize: none;border: 1px solid #e3e3e3;" id="complain"></textarea>
+	                               
+		                    </div>
+                		</div>
+					
+				
+                	
+				     <div class="row">
+	                    <div class="panel panel-default">
+	                        <div class="panel-heading" style="background-color: white;">
+	                         &nbsp;
+	                        </div>
+	                        <div class="panel-body">
+	                            <ul class="nav nav-tabs">
+	                                <li class="active"><a href="#result" data-toggle="tab">Result</a>
+	                                </li>
+	                                <li class=""><a href="#suggestion" data-toggle="tab">Suggestion</a>
+	                                </li>
+	                                <li class=""><a href="#prescription" data-toggle="tab">Prescription</a>
+	                                </li>
+	                              
+	                            </ul>
+	
+	                            <div class="tab-content">
+	                                <div class="tab-pane fade active in" id="result">
+	                                   <hr />
+	                                    <textarea id="result1" class="col-lg-12" rows="6" style="resize: none;border: 1px solid #e3e3e3;"></textarea>
+	                                </div>
+	                                <div class="tab-pane fade" id="suggestion">
+	                                    <hr />
+	                                    <textarea id="suggestion1" class="col-lg-12" rows="6" style="resize: none;border: 1px solid #e3e3e3;"></textarea>
+	                                </div>
+	                                <div class="tab-pane fade" id="prescription">
+	                                    <hr />
+	                                    <textarea id="prescription1" class="col-lg-12" rows="6" style="resize: none;border: 1px solid #e3e3e3;"></textarea>
+	                                </div>
+	                                
+	                            </div>
+	                        </div>
+	                    </div>
+                	</div>
+                           
+                    
+ 					<ul class="list-group">
+					    <li class="list-group-item">Doctor_id：<label style="margin-left: 20px;" id="doctor_id"></label></li>
+					    <li class="list-group-item">Doctor：<label style="margin-left: 20px;" id="doctor"></label></li>
+					</ul>
+					
+					<button type="button" class="btn btn-success btn-lg btn-block" id="submitBtn">
+					  submit
+					</button>
+					<br />
+					<br />
+					
+				</div>
+			
+			</div>
+
+
+				<div id="footer"> <small>
+
+      &#169; Copyright 2010 Your Company | Powered by <a href="#">admin templates</a> | <a href="#">Top</a> </small> </div>
+
+			</div>
+				</div>
+				
+		</div>
+
+	</body>
+
+</html>

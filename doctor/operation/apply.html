@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="../../js/bootstrap-3.3.0/css/bootstrap.css" />
+		<link rel="stylesheet" href="../../css/bottom.css" />
+		<link rel="stylesheet" href="../../patient/css/pic-style.css" />
+		<script src="../../js/bootstrap-3.3.0/js/jquery-3.0.0.min.js"></script>
+	
+		<script src="../../js/bootstrap-3.3.0/js/bootstrap.js"></script>
+		<style>
+		body {background: #333 url(../../img/bg.jpg) repeat top left;}
+		.modal-open {
+		    overflow: auto;
+		}
+		.modal-dialog {
+			    width: 900px;
+			    margin: 110px auto;
+			}
+			.box-wrapper {
+				width: 97%;
+				height: 1000px;
+				position: absolute;
+				top: 155px;
+				margin-left: 20px;
+				background-color: white;
+				border: 1px solid #ccc;
+				border-radius: 6px
+			}
+			
+			a {
+				text-decoration: none;
+			}
+			
+			li {
+				list-style-type: none;
+			}
+			.page-bottom{top: 1300px;}
+		</style>
+		<script type="text/javascript">
+			function returnHome() {
+				$("#home").click();
+			};
+			
+			$(function(){
+				var object=window.parent.document.getElementById('user').textContent;
+				 $('#submitBtn').click(function(){
+				 	$.ajax({
+								url:"http://localhost:9090/ihs/operations",
+								type:'POST',
+								data:JSON.stringify({'patient':$('#patient').val(),'doctor':$('#doctor').val(),
+										'record_id':$('#record_id').val(),'account':$('#account').val(),
+										'doctor_view':$('#doctor_view').val(),'doctor_id':object
+								}),
+								contentType:"application/json; charset=utf-8",
+								dataType:"json",
+								success: function(data){
+									location.reload();
+								}
+								
+						});
+				 });
+			
+			})
+		</script>
+	</head>
+
+	<body>
+
+		<div class="box-wrapper">
+			<div class="htmleaf-container">
+
+				<div class="wrap">
+					<div class="tile">
+						<img src="../../patient/imgs/1.jpg" />
+						<div class="text">
+							<h1>Lorem ipsum.</h1>
+							<h2 class="animate-text">More lorem ipsum bacon ipsum.</h2>
+							<p class="animate-text">Bacon ipsum dolor amet pork belly tri-tip turducken, pancetta bresaola pork chicken meatloaf. Flank sirloin strip steak prosciutto kevin turducken. </p>
+						</div>
+					</div>
+
+					<div class="tile">
+						<img src="../../patient/imgs/2.jpg" />
+						<div class="text">
+							<h1>Lorem ipsum.</h1>
+							<h2 class="animate-text">More lorem ipsum bacon ipsum.</h2>
+							<p class="animate-text">Bacon ipsum dolor amet pork belly tri-tip turducken, pancetta bresaola pork chicken meatloaf. Flank sirloin strip steak prosciutto kevin turducken. </p>
+
+						</div>
+					</div>
+
+					<div class="tile">
+						<img src="../../patient/imgs/3.jpg" />
+						<div class="text">
+							<h1>Lorem ipsum.</h1>
+							<h2 class="animate-text">More lorem ipsum bacon ipsum.</h2>
+							<p class="animate-text">Bacon ipsum dolor amet pork belly tri-tip turducken, pancetta bresaola pork chicken meatloaf. Flank sirloin strip steak prosciutto kevin turducken. </p>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--finesh picture-->
+			<br />
+			
+                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h2 class="modal-title" id="myModalLabel">operation application</h2>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form class="bs-example bs-example-form" role="form">
+													<div class="row">
+														<div class="col-lg-4">
+															<div class="input-group">
+																<span class="input-group-btn">
+													                  <button class="btn btn-default" type="button">
+													                   patient
+													                 </button>
+													            </span>
+																<input id="patient" type="text" class="form-control">
+															</div>
+														
+														</div>
+														<div class="col-lg-4">
+															<div class="input-group">
+																<span class="input-group-btn">
+													                  <button class="btn btn-default" type="button">
+													                    doctor
+													                 </button>
+													            </span>
+																<input id="doctor" type="text" class="form-control">
+															</div>
+														</div>
+														<div class="col-lg-4">
+															<div class="input-group">
+																<span class="input-group-btn">
+													                  <button class="btn btn-default" type="button">
+													                  record_id
+													                 </button>
+													            </span>
+																<input id="record_id" type="text" class="form-control">
+															</div>
+														</div>
+														
+														<div class="form-group" >
+														   <div class="col-lg-12" style="margin-top: 20px;">
+														   		<div class="input-group">
+																	<span class="input-group-btn">
+														                  <button class="btn btn-default" type="button">
+														                   patient_account
+														                 </button>
+														            </span>
+																	<input id="account" type="text" class="form-control">
+																</div>
+														   </div>
+														</div>
+														
+														<div class="form-group" >
+														   <div class="col-lg-12" style="margin-top: 20px;">
+														    <textarea id="doctor_view" class="form-control" rows="5" style="resize: none;" id="address"  name="address" placeholder="doctor please give application reason"></textarea>
+														   </div>
+														</div>
+														
+													</div>
+													
+													<div class="row" style="margin-top: 20px;">
+														<div class="col-lg-12">
+															<div class="input-group">
+																<span class="input-group-btn">
+													                  <button class="btn btn-default" type="button">
+													                   patient_view
+													                 </button>
+													            </span>
+																<input id="patient_view" type="text" class="form-control">
+															</div>
+														
+														</div>
+													</div>
+													
+													<div class="row" style="margin-top: 20px;">
+														<div class="col-lg-12">
+															<div class="input-group">
+																<span class="input-group-btn">
+													                  <button class="btn btn-default" type="button">
+													                   family_view
+													                 </button>
+													            </span>
+																<input id="family_view" type="text" class="form-control">
+															</div>
+														
+														</div>
+													</div>
+											</form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <button id="submitBtn" type="button" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+            
+			<br />
+			<br />
+			<br />
+			<div style="width: 350px;margin-left: 485px;">
+				<button type="button" class="btn btn-info  btn-block" data-toggle="modal" data-target="#myModal">
+	    			New operation applycation
+	  			</button>
+			</div>
+			
+			<p style="text-align: center;margin-top: 50px;font:italic  19px arial,sans-serif;line-height: 40px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.<br />
+				 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. <br />
+				 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+				 
+			</p>
+		</div>
+		
+		
+
+		
+
+		
+
+		<div class="page-bottom">
+			<div class="logoContain">
+				<ul class="logo">
+					<li><img src="../../system/img/hospital2.png" /></li>
+					<li><img src="../../system/img/hospital3.png" /></li>
+				</ul>
+
+			</div>
+			<div class="protocol">
+				<h6>All start from the heart.</h6>
+				<h6>Interconnection Hospital System 1.0 author:pengfei.zhou</h6>
+				<h6> IHS&nbsp;遵循 <a href="http://scripts.sil.org/OFL">SIL OFL 1.1 协议</a>&middot;代码遵循 <a href="http://opensource.org/licenses/mit-license.html">MIT协议</a>&middot;文档遵循 <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0 协议</a></h6>
+				<h6><a href="https://github.com/FortAwesome/Font-Awesome">GitHub项目</a> </h6>
+
+			</div>
+
+			<div class="logoContain">
+				<ul class="logo">
+					<li><img src="../../system/img/hospital4.png" /></li>
+					<li><img src="../../system/img/hospital5.png" /></li>
+				</ul>
+			</div>
+		</div>
+	</body>
+	
+</html>

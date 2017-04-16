@@ -6,10 +6,17 @@
 		<link rel="stylesheet" href="../../../js/bootstrap-3.3.0/css/bootstrap.css" />
 		<link rel="stylesheet" href="../../../css/bottom.css" />
 		<link rel="stylesheet" href="../../css/pic-style.css" />
-		<script src="http://www.jq22.com/jquery/1.4.4/jquery.min.js"></script>
-		<link rel="stylesheet" type="text/css" href="../css/jquery.confirm.css" />
+		<script src="../../../js/bootstrap-3.3.0/js/jquery-3.0.0.min.js"></script>
+		<script src="../../../js/bootstrap-3.3.0/js/bootstrap.js"></script>
 
 		<style>
+		.modal-open {
+		    overflow: auto;
+		}
+		.modal-dialog {
+			    margin: 110px auto;
+			}
+		body {background: #333 url(../../../img/bg.jpg) repeat top left;}
 			.box-wrapper {
 				width: 97%;
 				height: 800px;
@@ -33,6 +40,24 @@
 			function returnHome() {
 				$("#home").click();
 			};
+			$(function(){
+				$('#regBtn').click(function(){
+					var object=window.parent.document.getElementById('user').textContent;
+					$.ajax({
+								url:"http://localhost:9090/ihs/registrations/"+object+'/',
+								type:'POST',
+								data:JSON.stringify({'depart':$('#depart').val(),'doctor':$('#doctor').val(),
+										'time':$('#time').val()
+								}),
+								contentType:"application/json; charset=utf-8",
+								dataType:"json",
+								success: function(data){
+									$('#myModal').modal();
+								}
+								
+						});
+				});
+			})
 		</script>
 	</head>
 
@@ -79,11 +104,11 @@
 					<div class="col-lg-3">
 						<div class="input-group">
 							<span class="input-group-btn">
-				                  <button class="btn btn-default" type="button">
+				                  <button  class="btn btn-default" type="button">
 				                    depart
 				                 </button>
 				            </span>
-							<input type="text" class="form-control">
+							<input id="depart" type="text" class="form-control">
 						</div>
 					
 					</div>
@@ -94,7 +119,7 @@
 				                    doctor
 				                 </button>
 				            </span>
-							<input type="text" class="form-control">
+							<input id="doctor" type="text" class="form-control">
 						</div>
 					
 					</div>
@@ -102,13 +127,13 @@
 						<div class="input-group">
 							<span class="input-group-btn">
 				                  <button class="btn btn-default" type="button">
-				                    time
+				                   order time
 				                 </button>
 				            </span>
-							<select class="form-control" value=" ">
-								<option>9:00-11:30</option>
-								<option>14:00-17:30</option>
-								<option>19:00-22:00</option>
+							<select id="time" class="form-control" >
+								<option>上午</option>
+								<option>下午</option>
+								<option>晚上</option>
 							</select>
 						</div>
 					
@@ -119,10 +144,24 @@
 			<br />
 			<br />
 			<div style="width: 350px;margin-left: 485px;">
-				<button type="button" class="btn btn-info  btn-block">
-	    			Go Registration
+				<button id="regBtn" type="button" class="btn btn-info  btn-block" >
+	    			Go&nbsp;&nbsp;&nbsp;Registration
 	  			</button>
 			</div>
+			
+			
+                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                    	
+                                        <div class="modal-body">
+                                        	 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h3 style="text-align: center;margin: 55px;">success</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+            
 		</div>
 		
 
@@ -154,6 +193,6 @@
 			</div>
 		</div>
 	</body>
-	<script type="text/javascript" src="../js/jquery.confirm.js"></script>
+	
 
 </html>

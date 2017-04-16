@@ -3,14 +3,14 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<link rel="stylesheet" type="text/css" href="../../../../js/easyui/themes/default/easyui.css"></link>
-		<link rel="stylesheet" type="text/css" href="../../../../js/easyui/themes/icon.css"></link>
-		<link rel="stylesheet" type="text/css" href="../../../../js/easyui/demo/demo.css"></link>
-		<link rel="stylesheet" href="../../../../css/bottom.css" />
+		<link rel="stylesheet" type="text/css" href="../../js/easyui/themes/default/easyui.css"></link>
+		<link rel="stylesheet" type="text/css" href="../../js/easyui/themes/icon.css"></link>
+		<link rel="stylesheet" type="text/css" href="../../js/easyui/demo/demo.css"></link>
+		<link rel="stylesheet" href="../../css/bottom.css" />
 		<script src="http://www.jq22.com/jquery/1.4.4/jquery.min.js"></script>
-		<script type="text/javascript" src="../../../../js/easyui/jquery.easyui.min.js"></script>
+		<script type="text/javascript" src="../../js/easyui/jquery.easyui.min.js"></script>
 
-		<link rel="stylesheet" type="text/css" href="../css/jquery.confirm.css" />
+	<!--	<link rel="stylesheet" type="text/css" href="../css/jquery.confirm.css" />-->
 
 		<style>
 			.box-wrapper {
@@ -55,7 +55,7 @@
 				border-radius: 4px;
 				font-family: Verdana, Arial, sans-serif;
 				display: inline-block;
-				background: #459300 url(../../../../img/bg-button-green.gif) top left repeat-x !important;
+				background: #459300 url(../../img/bg-button-green.gif) top left repeat-x !important;
 				border: 1px solid #459300 !important;
 				padding: 4px 7px 4px 7px !important;
 				color: #fff !important;
@@ -90,7 +90,7 @@
 			body {
 				margin: 0px;
 				padding: 0px;
-				background: #333 url(../../../../img/bg.jpg) repeat top left;
+				background: #333 url(../../img/bg.jpg) repeat top left;
 			}
 			
 						
@@ -123,55 +123,6 @@
 			};
 
 			$(function() {
-
-				//删除
-				$("#tb_remove").click(function() {
-					var row = $('#depart_list').datagrid('getChecked');
-					if(row.length > 0) {
-						$.confirm({
-							'title': 'Delete Confirmation',
-							'message': '<br />You are sure to delete this item? <br />',
-							'buttons': {
-								'Yes': {
-									'class': 'blue',
-									'action': function() {
-										$.ajax({
-											url: "http://localhost:9090/ihs/persons/" + row[0].id,
-											type: 'DELETE',
-											contentType: "application/json; charset=utf-8",
-											dataType: "json",
-											success: function(data) {
-												if(data.result == true) {
-													$('#depart_list').datagrid('load');
-													$('#depart_list').datagrid('unselectAll');
-												}
-											}
-										})
-
-									}
-								},
-								'No': {
-									'class': 'gray',
-									'action': function() {}
-								}
-							}
-						});
-
-					} else {
-						$.confirm({
-							'title': 'Delete Confirmation',
-							'message': '<br />please choose the item to delete <br />',
-							'buttons': {
-								'ok': {
-									'class': 'blue',
-									'action': function() {
-
-									}
-								}
-							}
-						});
-					}
-				});
 
 				/* 	数据列表分页 */
 				$('#depart_list').datagrid({
@@ -313,111 +264,6 @@
 				});
 
 			});
-			//编辑前
-			function beforeUpdate() {
-				var row = $('#depart_list').datagrid('getSelected');
-				if(row) {
-					var index = $('#depart_list').datagrid('getRowIndex', row);
-					$('#depart_list').datagrid('selectRow', index);
-					$('#depart_list').datagrid('beginEdit', index);
-
-				} else {
-
-					$.confirm({
-						'title': 'update Confirmation',
-						'message': '<br />please choose the item to update <br />',
-						'buttons': {
-							'ok': {
-								'class': 'blue',
-								'action': function() {
-
-								}
-							}
-						}
-					});
-
-				}
-			}
-			//保存编辑
-			function update() {
-				var row = $('#depart_list').datagrid('getSelected');
-				if(row) {
-					var index = $('#depart_list').datagrid('getRowIndex', row);
-					$("#depart_list").datagrid('endEdit', index);
-					$.ajax({
-						url: "http://localhost:9090/ihs/persons/" + row.id,
-						type: 'PUT',
-						data: JSON.stringify({
-							'name': row.name,
-							'sex': row.sex,
-							'depart': row.depart,
-							'position': row.position,
-							'authority': row.authority,
-							'phone': row.phone,
-							'leavedate': row.leavedate
-						}),
-						contentType: "application/json; charset=utf-8",
-						dataType: "json",
-						success: function(data) {
-							if(data.result == true) {
-								$('#depart_list').datagrid('load');
-								$('#depart_list').datagrid('unselectAll');
-							}
-						}
-					})
-
-				}
-			}
-
-			//新增一行		
-			function insert() {
-				var row = $('#depart_list').datagrid('getSelected');
-				if(row) {
-					var index = $('#depart_list').datagrid('getRowIndex', row);
-				} else {
-					index = 0;
-				}
-				$('#depart_list').datagrid('insertRow', {
-					index: index,
-					row: {
-						id: ''
-					}
-				});
-
-				$('#depart_list').datagrid('selectRow', index);
-				$('#depart_list').datagrid('beginEdit', index);
-			}
-			//保存
-			function preserve() {
-				var row = $('#depart_list').datagrid('getSelected');
-				if(row) {
-					var index = $('#depart_list').datagrid('getRowIndex', row);
-					$("#depart_list").datagrid('endEdit', index);
-
-					$.ajax({
-						url: "http://localhost:9090/ihs/persons",
-						type: "POST",
-						data: JSON.stringify({
-							'name': row.name,
-							'sex': row.sex,
-							'depart': row.depart,
-							'position': row.position,
-							'authority': row.authority,
-							'phone': row.phone,
-							'leavedate': row.leavedate
-						}),
-						contentType: "application/json; charset=utf-8",
-						dataType: "json",
-						success: function(data) {
-							if(data.result == true) {
-								$('#depart_list').datagrid('load');
-								$('#depart_list').datagrid('unselectAll');
-							}
-						}
-					})
-
-				}
-			}
 		</script>
 	</head>
 
@@ -463,23 +309,23 @@
 					<div id="depart_tb">
 						<a class="easyui-linkbutton" id="tb_edit" data-options="iconCls:'icon-edit',plain:true" style="float:left;" onclick="beforeUpdate()" title="编辑"></a>
 						<div class="datagrid-btn-separator"></div>
-						<a class="easyui-linkbutton" id="tb_ad" data-options="iconCls:'icon-add',plain:true" style="float:left;" onclick="insert()" title="增加"></a>
+						<!--<a class="easyui-linkbutton" id="tb_ad" data-options="iconCls:'icon-add',plain:true" style="float:left;" onclick="insert()" title="增加"></a>
 						<div class="datagrid-btn-separator"></div>
 						<a class="easyui-linkbutton" id="tb_remove" data-options="iconCls:'icon-remove',plain:true" style="float:left;" title="删除"></a>
-						<div class="datagrid-btn-separator"></div>
+						<div class="datagrid-btn-separator"></div>-->
 					</div>
 
 					<br />
 					<hr />
 					<br />
-					<a class="button" style="margin-right: 15px;margin-left: 5px;" onclick="update()">up-Finish</a>
+					<!--<a class="button" style="margin-right: 15px;margin-left: 5px;" onclick="update()">up-Finish</a>
 
-					<a class="button" onclick="preserve()">Preserve</a>
+					<a class="button" onclick="preserve()">Preserve</a>-->
 
 				</div>
 				<div class="box-content-right">
 					<div style="height: 46px;background-color: #FF6600;margin-bottom: 4px;"></div>
-					<img src="../../../img/right.jpg" height="350px" width="264px" />
+					<img src="../../system/img/right.jpg" height="350px" width="264px" />
 					<div id="little">
 						<div class="little-text">Dedication to the heart</div>
 					</div>
@@ -490,8 +336,8 @@
 		<div class="page-bottom">
 			<div class="logoContain">
 				<ul class="logo">
-					<li><img src="../../../img/hospital2.png" /></li>
-					<li><img src="../../../img/hospital3.png" /></li>
+					<li><img src="../../system/img/hospital2.png" /></li>
+					<li><img src="../../system/img/hospital3.png" /></li>
 				</ul>
 
 			</div>
@@ -505,12 +351,12 @@
 
 			<div class="logoContain">
 				<ul class="logo">
-					<li><img src="../../../img/hospital4.png" /></li>
-					<li><img src="../../../img/hospital5.png" /></li>
+					<li><img src="../../system/img/hospital4.png" /></li>
+					<li><img src="../../system/img/hospital5.png" /></li>
 				</ul>
 			</div>
 		</div>
 	</body>
-	<script type="text/javascript" src="../js/jquery.confirm.js"></script>
+	<!--<script type="text/javascript" src="../js/jquery.confirm.js"></script>-->
 
 </html>

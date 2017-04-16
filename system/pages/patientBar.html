@@ -6,6 +6,20 @@
 	<link rel="stylesheet" href="../../css/navigation.css" />
 	<script src="../../js/jquery-3.1.1.min.js"></script>
 	<script src="../../js/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+	<style>
+		.container{
+			height: 70px;
+		}
+		.navbar-nav>li>a{line-height: 35px;}
+		.modal-dialog {
+			    /*width: 900px;*/
+			    margin: 130px auto;
+			}
+	.close:hover, .close:focus{
+		color: white;
+		opacity: 1;
+	}
+	</style>
 	<script type="text/javascript">
 		function replace(url){
 			$("#frame").attr("src",url)
@@ -17,7 +31,33 @@
 		   if (r!=null) return (r[2]); return null;
 		}
 		$(function(){
-			$("#user").append(GetQueryString("user"));
+			var object=GetQueryString("user");
+			$.ajax({
+							url:"http://localhost:9090/ihs/patients/"+object+'/',
+							type:'GET',
+							contentType:"application/json; charset=utf-8",
+							dataType:"json",
+							success: function(data){
+								$("#userId").append(data.result.account);
+								$("#user").append(GetQueryString("user"));
+							}
+							
+					});
+			$('#saveBtn').click(function(){
+				$.ajax({
+							url:"http://localhost:9090/ihs/patients/"+object+'/',
+							type:'PUT',
+							data:JSON.stringify({'password':$('#password').val()
+								}),
+							contentType:"application/json; charset=utf-8",
+							dataType:"json",
+							success: function(data){
+								$('#myModal').modal('hide');
+							}
+							
+					});
+			})
+			
 		})
 		
 	</script>
@@ -25,7 +65,7 @@
 <body>
 <div class="navbar-wrapper">
 			<div class="container-fluid">
-				<nav class="navbar navbar-fixed-top" style="height: 56px;">
+				<nav class="navbar navbar-fixed-top" style="height: 70px;">
 					<div class="container">
 						<div class="navbar-header">
 							<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -34,7 +74,7 @@
 			                    <span class="icon-bar"></span>
 			                    <span class="icon-bar"></span>
 			                </button>
-							<a class="navbar-brand" href="#" style="padding-top: 3px;"><img src="../../img/logo.png" width="50px" height="50px" /></a>
+							<a class="navbar-brand" href="#" style="padding-top: 3px;"><img src="../../img/logo.png" width="70px" height="68px" /></a>
 						</div>
 						<div id="navbar" class="navbar-collapse collapse">
 							<ul class="nav navbar-nav">
@@ -46,10 +86,10 @@
 									<a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hospital<span class="caret"></span></a>
 									<ul class="dropdown-menu">
 										<li >
-											<a href="#">View Departments</a>
+											<a href="#" id="h_detail" onclick="replace('../../doctor/hospital/hospitalDetail.html')">detail</a>
 										</li>
 										<li>
-											<a href="#">Add New</a>
+											<a href="#" id="h_rules" onclick="replace('next/hospital/hospitalRules.html')">rules</a>
 										</li>
 									</ul>
 								</li>
@@ -58,7 +98,7 @@
 									<a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Person<span class="caret"></span></a>
 									<ul class="dropdown-menu">
 										<li >
-											<a href="#" onclick="replace('../../patient/pages/person/selfInfo.html')">SelfInfo</a>
+											<a href="#" id="selfinfo" onclick="replace('../../patient/pages/person/selfInfo.html')">SelfInfo</a>
 										</li>
 										<li>
 											<a href="#" id="improveInfo" onclick="replace('../../patient/pages/person/improveInfo.html')">Improve Info</a>
@@ -70,10 +110,10 @@
 									<a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Registration<span class="caret"></span></a>
 									<ul class="dropdown-menu">
 										<li >
-											<a href="#">View Departments</a>
+											<a href="#" onclick="replace('../../patient/pages/registration/process.html')">process</a>
 										</li>
 										<li>
-											<a href="#" onclick="replace('../../patient/pages/registration/application.html')">application</a>
+											<a href="#" id="registration_application" onclick="replace('../../patient/pages/registration/application.html')">application</a>
 										</li>
 									</ul>
 								</li>
@@ -82,10 +122,10 @@
 									<a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Pharmacy<span class="caret"></span></a>
 									<ul class="dropdown-menu">
 										<li >
-											<a href="#">View Departments</a>
+											<a href="#" id="drugUse" onclick="replace('../../patient/pages/pharmacy/drugUse.html')">drugUse</a>
 										</li>
 										<li>
-											<a href="#">Add New</a>
+											<a href="#" onclick="replace('../../patient/pages/pharmacy/formalDrugs.html')">formalDrugs</a>
 										</li>
 									</ul>
 								</li>
@@ -94,11 +134,19 @@
 									<a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Operation<span class="caret"></span></a>
 									<ul class="dropdown-menu">
 										<li >
-											<a href="#">View Departments</a>
+											<a href="#" id="myOperation" onclick="replace('../../patient/pages/operation/opeApply.html')">MyOperation</a>
 										</li>
-										<li>
-											<a href="#">Add New</a>
+										
+									</ul>
+								</li>
+								
+								<li class=" dropdown">
+									<a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Diagnosis<span class="caret"></span></a>
+									<ul class="dropdown-menu">
+										<li >
+											<a href="#" onclick="replace('../../patient/pages/diagnosis/recordList.html')">recordList</a>
 										</li>
+										
 									</ul>
 								</li>
 							
@@ -108,14 +156,13 @@
 									<a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Signed in as <span class="caret"></span></a>
 									<ul class="dropdown-menu">
 										<li>
-											<a href="#">Id:<span id="user"></span></a>
+											<a href="#">Id:<span id="userId"></span></a>
+											<div style="visibility: hidden;display: none;" id="user"></div>
 										</li>
 										<li>
-											<a href="#">Change Password</a>
+											<a href="#" data-toggle="modal" data-target="#myModal">Change Password</a>
 										</li>
-										<li>
-											<a href="#">My Profile</a>
-										</li>
+										
 									</ul>
 								</li>
 								<li class="">
@@ -125,12 +172,44 @@
 						</div>
 					</div>
 					<!--red box-->
-					<div style="height: 30px;background-color:#A90A0A ;">
+					<div style="height: 40px;background-color:#A90A0A ;">
 				</nav>
 				
 			</div>
 			</div>
+			<!--change password model-->
+							<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content" style="background-color: #A90A0A;">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel" style="color: white;">Password Change</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                        	<form class="form-horizontal" role="form">
+                                        		<div class="form-group">
+											      <div class="col-sm-8" style="margin-left: 90px;">
+											        <input type="password" class="form-control" id="password" placeholder="please input new password">
+											      </div>
+											   </div>
+											   <div class="form-group">
+											      <div class="col-sm-8" style="margin-left: 90px;">
+											        <input type="password" class="form-control" id="aginPassword" placeholder="please input password again">
+											      </div>
+											   </div>
+
+
+                                        	</form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <button type="button" id="saveBtn" class="btn btn-primary">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                       
 		</div>
-		<iframe id="frame" src="../../count/page/patientView.html" width="100%" height="100%"></iframe>
+		<iframe id="frame" src="../../count/page/patientView.html" width="100%" height="100%" ></iframe>
 </body>
 </html>
