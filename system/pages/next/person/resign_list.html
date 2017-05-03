@@ -2,13 +2,14 @@
 <html lang="en">
     <head>
     	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <link rel="stylesheet" href="../../../js/easyui/themes/default/easyui.css"></link>
-        <link rel="stylesheet" href="../../../js/easyui/themes/icon.css"></link>
-        <link rel="stylesheet" href="../../../js/easyui/demo/demo.css"/>
-        <link rel="stylesheet" href="../../../css/bottom.css"/>
-        <script src="../../../js/easyui/jquery.js"></script>
-        <script src="../../../js/easyui/jquery.easyui.min.js"></script>
+        <link rel="stylesheet" href="../../../../js/easyui/themes/default/easyui.css"></link>
+        <link rel="stylesheet" href="../../../../js/easyui/themes/icon.css"></link>
+        <link rel="stylesheet" href="../../../../js/easyui/demo/demo.css"/>
+        <link rel="stylesheet" href="../../../../css/bottom.css"/>
+        <script src="../../../../js/easyui/jquery.js"></script>
+        <script src="../../../../js/easyui/jquery.easyui.min.js"></script>
        <style>
+
 			.box-wrapper {
 				width: 97%;
 				height: 800px;
@@ -86,7 +87,7 @@
 			body {
 				margin: 0px;
 				padding: 0px;
-				background: #333 url(../../../img/bg.jpg) repeat top left;
+				background: #333 url(../../../../img/bg.jpg) repeat top left;
 			}
 			
 						
@@ -120,8 +121,6 @@
 
 			$(function() {
 				/* 	数据列表分页 */
-				var object=window.parent.document.getElementById('userId').textContent;
-				
 				$('#depart_list').datagrid({
 					method: 'get',
 					singleSelect: true,
@@ -129,45 +128,59 @@
 					scrollbarSize: 0,
 					pageSize: 10,
 					pageList: [3, 5, 10, 15],
-					url: "http://localhost:9090/ihs/records?account="+object,
+					url: 'http://localhost:9090/ihs/resignations',
 					columns: [
 						[{
 							field: '选择',
 							checkbox: true
 						}, {
-							field: 'record_id',
-							title: '病历单号',
+							field: 'id',
+							title: '离职申请编号',
 							width: 100
 						}, {
 							field: 'name',
-							title: '患者姓名',
-							width: 60,
+							title: '离职申请人',
+							width: 50,
 							editor: 'text'
 						}, {
-							field: 'account',
-							title: '患者账号',
-							width: 100,
+							field: 'number',
+							title: '工号',
+							width: 80,
 							editor: 'text'
 						}, {
 							field: 'depart',
-							title: '挂号科室',
-							width: 60,
+							title: '科室',
+							width: 50,
 							editor: 'text'
 						}, {
-							field: 'complain',
-							title: '主诉',
-							width: 130,
+							field: 'reason',
+							title: '缘由',
+							width: 150,
 							editor: 'text'
 						}, {
-							field: 'result',
-							title: '诊断结果',
-							width: 130,
-							editor: 'text'
-						}, {
-							field: 'date',
-							title: '诊断时间',
+							field: 'apply_time',
+							title: '申请时间',
 							width: 100,
-							align: 'left',
+							editor: 'text'
+						},  {
+							field: 'status',
+							title: '审批状态',
+							width: 50,
+							editor: 'text'
+						}, {
+							field: 'approver',
+							title: '审批人',
+							width: 50,
+							editor: 'text'
+						}, {
+							field: 'approval_view',
+							title: '审批意见',
+							width: 100,
+							editor: 'text'
+						}, {
+							field: 'approval_time',
+							title: '审批时间',
+							width: 100,
 							editor: 'text'
 						}, ]
 					],
@@ -185,23 +198,32 @@
 				$("#searchBtn").click(function() {
 
 					$("#depart_list").datagrid("load", {
-						"name": $("#name").val(),
-						"depart": $("#depart").val()
+						"number": $("#number").val(),
+						"name": $("#name").val()
 					});
 
 				});
-
-				$('#diagnosisBtn').click(function(){
+				
+				$('#approveBtn').click(function(){
 					var row = $('#depart_list').datagrid('getSelected');
 					if(row) {
-							window.location.href='medical_record.html?registration_id='+row.registration_id;
+							window.location.href='approval.html?operation_id='+row.operation_id;
 					}
-			
-					
 				})
+				
+				$('#approveBtn').click(function(){
+					var row = $('#depart_list').datagrid('getSelected');
+					if(row) {
+							window.location.href='resign_approve.html?id='+row.id;
+					}
+				})
+
+
+
 			});
 			
-			</script>
+			
+		</script>
 	</head>
 
 	<body style="background-color: #f0f0f0;">
@@ -220,16 +242,18 @@
 							<table border="0" cellpadding="5" cellspacing="0">
 								<tr>
 
-									<td>患者姓名:</td>
+									<td>工号:</td>
 									<td>
-										<input type="text" id="name" name="patientName" data-options="required:true" style="width:150px;" />
+										<input type="text" id="number" type="number" type="number" style="width:150px;" />
 									</td>
-									<td>就诊科室:</td>
+									<td>姓名:</td>
 									<td>
-										<input type="text" id="depart" name="depart" data-options="required:true" style="width:150px;" />
+										<input type="text" id="name"  style="width:150px;" />
 									</td>
+									
 									<td>
 										<a class="button" id="searchBtn">Search</a>
+
 									</td>
 								</tr>
 							</table>
@@ -246,24 +270,25 @@
 					<br />
 					<hr />
 					<br />
-					
+					<a class="button" id="approveBtn"  style="margin-right: 15px;margin-left: 5px;">approve</a>
 
 				</div>
 				<div class="box-content-right">
 					<div style="height: 46px;background-color: #FF6600;margin-bottom: 4px;"></div>
-					<img src="../../../system/img/right.jpg" height="350px" width="264px" />
+					<img src="../../../img/right.jpg" height="350px" width="264px" />
 					<div id="little">
 						<div class="little-text">Dedication to the heart</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		
 
 		<div class="page-bottom">
 			<div class="logoContain">
 				<ul class="logo">
-					<li><img src="../../../system/img/hospital2.png" /></li>
-					<li><img src="../../../system/img/hospital3.png" /></li>
+					<li><img src="../../../img/hospital2.png" /></li>
+					<li><img src="../../../img/hospital3.png" /></li>
 				</ul>
 
 			</div>
@@ -277,10 +302,12 @@
 
 			<div class="logoContain">
 				<ul class="logo">
-					<li><img src="../../../system/img/hospital4.png" /></li>
-					<li><img src="../../../system/img/hospital5.png" /></li>
+					<li><img src="../../../img/hospital4.png" /></li>
+					<li><img src="../../../img/hospital5.png" /></li>
 				</ul>
 			</div>
 		</div>
 	</body>
+
+
 </html>

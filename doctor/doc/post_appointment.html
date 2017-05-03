@@ -9,10 +9,36 @@
 		<link rel="stylesheet" href="../../css/style.css" type="text/css" media="screen" />
 
 		<style>
+		.modal-dialog {
+			   /* width: 900px;*/
+			    margin: 130px auto;
+			}
 			body {
 				background: url(../../img/bg.jpg) repeat;
 			}
 		</style>
+		<script type="text/javascript">
+			
+				$(function(){
+				 $('#submitBtn').click(function(){
+				 	$.ajax({
+								url:"http://localhost:9090/ihs/resignations",
+								type:'POST',
+								data:JSON.stringify({'name':$('#name').val(),'number':$('#number').val(),
+										'depart':$('#depart').val(),'reason':$('#reason').val()
+								}),
+								contentType:"application/json; charset=utf-8",
+								dataType:"json",
+								success: function(data){
+									location.reload();
+								}
+								
+						});
+				 });
+			
+			})
+		
+		</script>
 
 	</head>
 
@@ -30,6 +56,9 @@
 					<br />
 					<br />
 					<br />
+				<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
+	    			Resignation
+	  			</button>
 			</div>
 
 		</div>
@@ -37,7 +66,70 @@
 		<div id="footer" style="margin-left: 90px;"> <small>
 
       &#169; Copyright 2010 Your Company | Powered by <a href="#">admin templates</a> | <a href="#">Top</a> </small> </div>
-
+      
+      <!--model-->
+	 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h2 class="modal-title" id="myModalLabel">resign application</h2>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form class="bs-example bs-example-form" role="form">
+													<div class="row">
+														<div class="col-lg-4">
+															<div class="input-group">
+																<span class="input-group-btn">
+													                  <button class="btn btn-default" type="button">
+													                   name
+													                 </button>
+													            </span>
+																<input id="name" type="text" class="form-control">
+															</div>
+														
+														</div>
+														<div class="col-lg-4">
+															<div class="input-group">
+																<span class="input-group-btn">
+													                  <button class="btn btn-default" type="button">
+													                    number
+													                 </button>
+													            </span>
+																<input id="number" type="text" class="form-control">
+															</div>
+														</div>
+														<div class="col-lg-4">
+															<div class="input-group">
+																<span class="input-group-btn">
+													                  <button class="btn btn-default" type="button">
+													                  depart
+													                 </button>
+													            </span>
+																<input id="depart" type="text" class="form-control">
+															</div>
+														</div>
+														
+														
+														<div class="form-group" >
+														   <div class="col-lg-12" style="margin-top: 20px;">
+														    <textarea id="reason" class="form-control" rows="7" style="resize: none;" id="address"  name="address" placeholder="give your resign reason"></textarea>
+														   </div>
+														</div>
+														
+													</div>
+													
+													
+											</form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <button id="submitBtn" type="button" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+            
 	</body>
 
 </html>

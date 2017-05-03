@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="../../../js/bootstrap-3.3.0/css/bootstrap.css" />
+		<link rel="stylesheet" href="../../../css/bottom.css" />
+		<link rel="stylesheet" href="../../css/pic-style.css" />
+		<script src="../../../js/bootstrap-3.3.0/js/jquery-3.0.0.min.js"></script>
+		<script src="../../../js/bootstrap-3.3.0/js/bootstrap.js"></script>
+
+		<style>
+		.modal-open {
+		    overflow: auto;
+		}
+		.modal-dialog {
+			    margin: 150px auto;
+			}
+		body {background: #333 url(../../../img/bg.jpg) repeat top left;}
+			.box-wrapper {
+				width: 97%;
+				height: 800px;
+				position: absolute;
+				top: 155px;
+				margin-left: 20px;
+				background-color: white;
+				border: 1px solid #ccc;
+				border-radius: 6px
+			}
+		td{height: 38px;}
+	.table{width: 97%;}
+		</style>
+		<script type="text/javascript">
+			function returnHome() {
+				$("#home").click();
+			};
+			$(function(){
+					var object=window.parent.document.getElementById('userId').textContent;
+					$.ajax({
+								url:"http://localhost:9090/ihs/registrations?patientAccount="+object,
+								type:'GET',
+								contentType:"application/json; charset=utf-8",
+								dataType:"json",
+								success: function(data){
+									if(data.result!=null){
+									$('#registration_id').html(data.result.registration_id),
+									$('#depart').html(data.result.depart),
+									$('#doctor_id').html(data.result.doctor_id),
+									$('#doctor').html(data.result.doctor),
+									$('#time').html(data.result.time),
+									$('#registration_index').html(data.result.registration_index),
+									$('#status').html(data.result.status)
+									}
+									
+								}
+								
+						});
+				
+				$('#cancelBtn').click(function(){
+					$.ajax({
+								url:"http://localhost:9090/ihs/registrations/"+$('#registration_id').html()+"/",
+								type:'PUT',
+								contentType:"application/json; charset=utf-8",
+								dataType:"json",
+								success: function(data){
+									$('#myModal').modal();
+									
+								}
+								
+						});
+				})
+				
+				$('#closeBtn').click(function(){
+					window.location.reload();
+				})
+				
+			})
+		</script>
+	</head>
+
+	<body>
+
+		<div class="box-wrapper">
+		<table class="table table-bordered" style="margin: 20px ;table-layout: fixed;">
+		  <caption><h3>我的挂号</h3></caption>
+		   <thead style="background-color: #A90A0A; color: white;">
+		      <tr>
+		        <th>挂号单号</th>
+		        <th>挂号科室</th>
+		        <th>医生编号</th>
+		        <th>医生</th>
+		        <th>预约时间</th>
+		        <th>序号</th>
+		        <th>状态</th>
+		      </tr>
+		  </thead>
+		   <tbody>
+		     <tr>
+		        <td id="registration_id"></td>
+		        <td id="depart"></td>
+		        <td id="doctor_id"></td>
+		        <td id="doctor"></td>
+		        <td id="time"></td>
+		        <td id="registration_index"></td>
+		        <td id="status"></td>
+		     </tr>
+		 </tbody>
+		</table>
+		<div class="col-lg-2" style="margin-left: 1085px;"><button class="btn btn-info btn-block" id="cancelBtn">取消预约</button></div>
+		
+
+			
+			
+                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                    	<div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel">提示</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h3 style="text-align: center;margin: 55px;">success</h3>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button id="closeBtn" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+            
+		</div>
+		
+
+		
+
+		
+
+		<div class="page-bottom">
+			<div class="logoContain">
+				<ul class="logo">
+					<li><img src="../../../system/img/hospital2.png" /></li>
+					<li><img src="../../../system/img/hospital3.png" /></li>
+				</ul>
+
+			</div>
+			<div class="protocol">
+				<h6>All start from the heart.</h6>
+				<h6>Interconnection Hospital System 1.0 author:pengfei.zhou</h6>
+				<h6> IHS&nbsp;遵循 <a href="http://scripts.sil.org/OFL">SIL OFL 1.1 协议</a>&middot;代码遵循 <a href="http://opensource.org/licenses/mit-license.html">MIT协议</a>&middot;文档遵循 <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0 协议</a></h6>
+				<h6><a href="https://github.com/FortAwesome/Font-Awesome">GitHub项目</a> </h6>
+
+			</div>
+
+			<div class="logoContain">
+				<ul class="logo">
+					<li><img src="../../../system/img/hospital4.png" /></li>
+					<li><img src="../../../system/img/hospital5.png" /></li>
+				</ul>
+			</div>
+		</div>
+	</body>
+	
+
+</html>

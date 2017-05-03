@@ -95,11 +95,11 @@
 						</li>
 
 						<li>
-							<a href="#" class="nav-top-item current">Articles </a>
+							<a href="#prescription" class="nav-top-item current">Prescription </a>
 						</li>
 						
 						<li>
-							<a href="#/" class="nav-top-item no-submenu">Dashboard </a>
+							<a href="#submitBtn" class="nav-top-item no-submenu">Submit </a>
 						</li>
 
 						<li>
@@ -113,52 +113,31 @@
 			</div>
 
 			<div id="main-content">
-				  
-				  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
-                                    	
+                                    	<div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel">提示</h4>
+                                        </div>
                                         <div class="modal-body">
-                                        	 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                             <h3 style="text-align: center;margin: 55px;">success</h3>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button id="closeBtn" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-            
+              
 				<div class="inner">
 					<h1 id="welcome" style="font-size: 45px;font-weight: normal;margin-top: 140px;">Welcome</h1>
 
 				<br />
-
-				<ul class="shortcut-buttons-set">
-
-					<li>
-						<a class="shortcut-button" href="#"><span> <img src="../../img/icons/pencil_48.png" alt="icon" /><br />Write an Article </span></a>
-					</li>
-
-					<li>
-						<a class="shortcut-button" href="#"><span> <img src="../../img/icons/paper_content_pencil_48.png" alt="icon" /><br />Create New </span></a>
-					</li>
-
-					<li>
-						<a class="shortcut-button" href="#"><span> <img src="../../img/icons/image_add_48.png" alt="icon" /><br />Upload Image </span></a>
-					</li>
-
-					<li>
-						<a class="shortcut-button" href="#"><span> <img src="../../img/icons/clock_48.png" alt="icon" /><br />Add an Event </span></a>
-					</li>
-
-					<li>
-						<a class="shortcut-button" href="#messages" rel="modal"><span> <img src="../../img/icons/comment_48.png" alt="icon" /><br />New operation </span></a>
-					</li>
-
-				</ul>
-				
-				<h1></h1>
-				<div class="panel panel-default" style="margin-top: 150px;">
+				<h1 id="prescription"></h1>
+				<div class="panel panel-default" style="margin-top: 30px;">
 					<div class="panel-body">
-						<div class="jumbotron" style="padding: 0px;background-color: white;">
+						<div class="jumbotron" style="padding: 0px;background-color: white;" >
 	                        <h2>Medical prescription</h2>
 	                        <hr />
 	                        <p style="margin-left: 20px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
